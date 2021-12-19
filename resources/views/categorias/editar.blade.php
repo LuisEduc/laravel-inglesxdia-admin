@@ -22,10 +22,6 @@
                             <input name="titulo" class="form-control rounded" type="text" value="{{ $categoria->titulo }}"  />
                         </div>
                         <div class="grid grid-cols-1">
-                            <label class="form-label text-uppercase">descripción:</label>
-                            <input name="descripcion" class="form-control rounded" type="text" value="{{ $categoria->descripcion }}"  />
-                        </div>
-                        <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">nivel:</label>
                             <select name="nivel" class="form-control rounded" type="text" >
                                 <option value="basico" @if($categoria->nivel=='basico') selected='selected' @endif>Básico</option>
@@ -36,6 +32,10 @@
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">ícono:</label>
                             <input name="icono" class="form-control rounded" type="text" value="{{ $categoria->icono }}"  />
+                        </div>
+                        <div class="grid grid-cols-1">
+                            <label class="form-label text-uppercase">descripción:</label>
+                            <textarea name="descripcion" class="form-control rounded" type="text" rows="2">{{ $categoria->descripcion }}</textarea>
                         </div>
                     </div>
 
