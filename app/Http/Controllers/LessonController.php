@@ -105,8 +105,8 @@ class LessonController extends Controller
         $tipos = Tipo::all();
         $preguntas = Pregunta::where('id_lesson', $lesson->id)->get();
         $lessonimage = Lessonimage::where('id_lesson', $lesson->id)
-        ->orderBy('id_imagen')
-        ->get();
+            ->orderBy('id_imagen')
+            ->get();
         return view('lessons.editar', compact('lesson', 'categorias', 'tipos', 'preguntas', 'lessonimage'));
     }
 
@@ -191,7 +191,6 @@ class LessonController extends Controller
                     'id_imagen' => $count_imagenes + $key,
                     'imagen' => "$imagenLesson",
                 ]);
-
             }
         }
 
@@ -314,7 +313,13 @@ class LessonController extends Controller
             ->get();
 
         foreach ($tipos as $i => $tipo) {
-            $data[$i] = ['id' => $tipo->id, 'titulo' => $tipo->titulo, 'icono' => $tipo->icono];
+            $data[$i] = [
+                'id' => $tipo->id,
+                'titulo' => $tipo->titulo,
+                'icono' => $tipo->icono,
+                'color' => $tipo->color,
+                'bg' => $tipo->bg
+            ];
             foreach ($lecciones as $leccion) {
                 if ($leccion->id_tipo == $tipo->id) {
                     $data[$i]['data'][] = $leccion;
