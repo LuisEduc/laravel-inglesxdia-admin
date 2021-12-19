@@ -14,23 +14,16 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">slug:</label>
-                            <input name="slug" class="form-control rounded" type="text" value="fr"  />
-                        </div>
-                        <div class="grid grid-cols-1">
-                            <label class="form-label text-uppercase">posición:</label>
-                            <input name="posicion" class="form-control rounded" type="number" value="1"  />
+                            <input name="slug" class="form-control rounded" type="text"/>
+                            <input name="orden" type="hidden" value="{{ count($categorias) + 1 }}" />
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">título:</label>
-                            <input name="titulo" class="form-control rounded" type="text" value="Formas de decir"  />
-                        </div>
-                        <div class="grid grid-cols-1">
-                            <label class="form-label text-uppercase">descripción:</label>
-                            <input name="descripcion" class="form-control rounded" type="text" value="Formas de decir"  />
+                            <input name="titulo" class="form-control rounded" type="text"/>
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">nivel:</label>
-                            <select name="nivel" class="form-control rounded" type="text" >
+                            <select name="nivel" class="form-control rounded" type="text">
                                 <option value="basico">Básico</option>
                                 <option value="medio">Medio</option>
                                 <option value="avanzado">Avanzado</option>
@@ -38,7 +31,11 @@
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">ícono:</label>
-                            <input name="icono" class="form-control rounded" type="text" value="fa-book-open"  />
+                            <input name="icono" class="form-control rounded" type="text" value="fa-book-open"/>
+                        </div>
+                        <div class="grid grid-cols-1">
+                            <label class="form-label text-uppercase">descripción:</label>
+                            <textarea name="descripcion" class="form-control rounded" type="text" rows="2"></textarea>
                         </div>
                      </div>
 

@@ -10,7 +10,7 @@ class Lesson extends Model
     use HasFactory;
 
     
-    protected $fillable = [ 'slug','titulo','descripcion','id_categoria','estado','id_tipo','imagen','audio','preguntas' ];
+    protected $fillable = [ 'slug','orden','titulo','descripcion','id_categoria','estado','id_tipo','audio','preguntas' ];
 
     protected $hidden = ['created_at', 'updated_at'];
 
@@ -23,6 +23,10 @@ class Lesson extends Model
     }
 
     public function preguntas(){
-        return $this->hasMany(Lesson::class, 'id');
+        return $this->hasMany(Pregunta::class, 'id_lesson');
+    }
+
+    public function lessonimages(){
+        return $this->hasMany(Lessonimage::class, 'id_lesson');
     }
 }

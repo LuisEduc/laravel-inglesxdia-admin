@@ -12,7 +12,7 @@
                 <form action="{{ route('preguntas.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mt-4">
-                    @for($index = 1; $index <= $preguntas; $index++) 
+                    @for($index = 0; $index <= $preguntas - 1; $index++) 
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">pregunta {{$index}}:</label>
                             <input name="id_lesson[]" value="{{$id_lesson}}" type="hidden" />
@@ -28,7 +28,6 @@
                         @endfor
                     </div>
                     <div class='flex items-center justify-center  md:gap-8 gap-4 pt-4'>
-                        <a href="{{ route('lessons.index') }}" class="btn btn-danger">Cancelar</a>
                         <button type="submit" class="btn btn-success">Guardar</button>
                     </div>
                 </form>

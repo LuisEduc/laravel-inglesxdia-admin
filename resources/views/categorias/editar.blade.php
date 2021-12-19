@@ -18,10 +18,6 @@
                             <input name="slug" class="form-control rounded" type="text" value="{{ $categoria->slug }}"  />
                         </div>
                         <div class="grid grid-cols-1">
-                            <label class="form-label text-uppercase">posición:</label>
-                            <input name="posicion" class="form-control rounded" type="number" value="{{ $categoria->posicion }}"  />
-                        </div>
-                        <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">título:</label>
                             <input name="titulo" class="form-control rounded" type="text" value="{{ $categoria->titulo }}"  />
                         </div>

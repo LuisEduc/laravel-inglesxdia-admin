@@ -27,6 +27,9 @@
                     <x-jet-nav-link href="{{ route('tipos.index') }}" :active="request()->routeIs('tipos.index')">
                         {{ __('Tipos de lecciones') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('pushusers.index') }}" :active="request()->routeIs('pushusers.index')">
+                        {{ __('Usuarios suscritos') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 
@@ -163,6 +166,9 @@
             </x-jet-responsive-nav-link>
             <x-jet-responsive-nav-link href="{{ route('tipos.index') }}" :active="request()->routeIs('tipos.index')">
                 {{ __('Tipos de lecciones') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('pushusers.index') }}" :active="request()->routeIs('pushusers.index')">
+                {{ __('Usuarios suscritos') }}
             </x-jet-responsive-nav-link>
         </div>
 

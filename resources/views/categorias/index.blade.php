@@ -15,8 +15,8 @@
                         <thead>
                             <tr>
                                 <th scope="col" class="d-none">ID</th>
-                                <th scope="col">POSICIÓN</th>
                                 <th scope="col">SLUG</th>
+                                <th scope="col">ORDEN</th>
                                 <th scope="col">TITULO</th>
                                 <th scope="col">DESCRIPCION</th>
                                 <th scope="col">NIVEL</th>
@@ -24,12 +24,12 @@
                                 <th scope="col">ACCIONES</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tablecontents" value="{{ count($categorias) }}">
                             @foreach($categorias as $categoria)
-                            <tr>
+                            <tr class="fila" data-id="{{ $categoria->id }}">
                                 <td class="d-none">{{$categoria->id}}</td>
-                                <td>{{$categoria->posicion}}</td>
                                 <td>{{$categoria->slug}}</td>
+                                <td>{{$categoria->orden}}</td>
                                 <td>{{$categoria->titulo}}</td>
                                 <td>{{$categoria->descripcion}}</td>
                                 <td>{{$categoria->nivel}}</td>
@@ -85,6 +85,7 @@
     })()
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 <script>
@@ -93,7 +94,68 @@
             "lengthMenu": [
                 [5, 10, 50, -1],
                 [5, 10, 50, "All"]
-            ]
+            ],
+            "order": []
         });
+
+        if ($("#tablecontents").attr('value') <= 5) {
+
+            $("#tablecontents").sortable({
+                items: "tr",
+                cursor: 'move',
+                opacity: 0.6,
+                update: function() {
+                    sendOrderToServer();
+                }
+            });
+
+        }
+
+        $('[name=categorias_length]').on("click", function() {
+
+            console.log($("#tablecontents").attr('value'))
+
+            if ($('tr.fila').length == $("#tablecontents").attr('value')) {
+
+                $("#tablecontents").sortable({
+                    items: "tr",
+                    cursor: 'move',
+                    opacity: 0.6,
+                    update: function() {
+                        sendOrderToServer();
+                    }
+                });
+            }
+
+        });
+
+        function sendOrderToServer() {
+
+            let orden = [];
+            
+            $('tr.fila').each(function(index, element) {
+                let filas = $('tr.fila').length
+                orden.push({
+                    id: $(this).attr('data-id'),
+                    posicion: filas - index
+                });
+            });
+
+            $.ajax({
+                url: "{{ route('categorias.updateorden') }}",
+                type: 'POST',
+                dataType: "json",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    orden: orden,
+                },
+                success: function(data) {
+                    console.log('success');
+                }
+            });
+
+        }
     });
 </script>

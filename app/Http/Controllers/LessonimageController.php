@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tipo;
+use App\Models\Lessonimage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
-class TipoController extends Controller
+class LessonimageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,7 @@ class TipoController extends Controller
      */
     public function index()
     {
-        $tipos = Tipo::orderByDesc('orden')->get();
-        return view('tipos.index', compact('tipos'));
+        //
     }
 
     /**
@@ -25,8 +25,7 @@ class TipoController extends Controller
      */
     public function create()
     {
-        $tipos = Tipo::all();
-        return view('tipos.crear', compact('tipos'));
+        //
     }
 
     /**
@@ -37,9 +36,7 @@ class TipoController extends Controller
      */
     public function store(Request $request)
     {
-        $tipos = $request->all();
-        Tipo::create($tipos);
-        return redirect()->route('tipos.index');
+        //
     }
 
     /**
@@ -59,9 +56,9 @@ class TipoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tipo $tipo)
+    public function edit($id)
     {
-        return view('tipos.editar', compact('tipo'));
+        //
     }
 
     /**
@@ -71,27 +68,9 @@ class TipoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tipo $tipo)
+    public function update(Request $request, $id)
     {
-        $tip = $request->all();
-        $tipo->update($tip);
-        return redirect()->route('tipos.index');
-    }
-
-    public function updateOrden(Request $request)
-    {
-
-        $tipos = Tipo::all();
-
-        foreach ($tipos as $tipo) {
-            foreach ($request->orden as $orden) {
-                if ($orden['id'] == $tipo->id) {
-                    $tipo->update(['orden' => $orden['posicion']]);
-                }
-            }
-        }
-        
-        return response('Update Successfully.', 200);
+        //
     }
 
     /**
@@ -100,9 +79,16 @@ class TipoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tipo $tipo)
+    public function destroy($id)
     {
-        $tipo->delete();
-        return redirect()->route('tipos.index'); 
+        //
+    }
+
+    public function eliminar($id)
+    {
+        $lessonimage = Lessonimage::find($id);
+        $lessonimage->delete();
+        File::delete("imagen/$lessonimage->imagen");
+        return redirect()->back();
     }
 }

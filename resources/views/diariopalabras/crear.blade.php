@@ -31,11 +31,12 @@
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">PALABRAS EN ESPAÑOL:</label>
-                            <input name="palabras_es" class="form-control rounded" type="text" value="rio, cama, agua"  />
+                            <input name="palabras_es" class="form-control rounded" type="text"/>
+                            <input name="orden" type="hidden" value="{{ count($diariopalabras) + 1 }}" />
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">PALABRAS EN INGLÉS:</label>
-                            <input name="palabras_in" class="form-control rounded" type="text" value="river, bed, water"  />
+                            <input name="palabras_in" class="form-control rounded" type="text"/>
                         </div>
                     </div>
 

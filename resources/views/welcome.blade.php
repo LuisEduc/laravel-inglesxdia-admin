@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Administrador | inglesxdia</title>
+        <title>Administrador</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -25,7 +25,6 @@
             @if (Route::has('login'))
                 <div class="fixed top-0 right-0 px-6 py-4">
                     @auth
-                        <!-- <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a> -->
                         <a href="{{ url('/palabras') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Palabras</a>
                         <a href="{{ url('/lessons') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Lecciones</a>
                         <a href="{{ url('/categorias') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Categorias</a>

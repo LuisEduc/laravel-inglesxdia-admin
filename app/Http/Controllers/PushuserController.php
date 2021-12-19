@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class PushuserController extends Controller
 {
+    public function index(Request $request)
+    {
+        $pushusers = Pushuser::all();
+        return view('pushusers.index', compact('pushusers'));
+    }
+
     public function saveToken(Request $request)
     {
         if (Pushuser::where('device_id', $request->device_id)->exists()) {

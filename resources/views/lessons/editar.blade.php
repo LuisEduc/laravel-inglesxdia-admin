@@ -23,9 +23,9 @@
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">descripción:</label>
-                            <input name="descripcion" class="form-control rounded" type="text" value="{{ $lesson->descripcion }}" />
+                            <textarea name="descripcion" class="form-control rounded" type="text" rows="1" value="{{ $lesson->descripcion }}"></textarea>
                         </div>
-                        <div class="grid grid-cols-1">
+                        <div>
                             <label class="form-label text-uppercase">categoría:</label>
                             <select name="id_categoria" class="form-control rounded" type="number">
                                 @foreach($categorias as $key => $value)
@@ -57,11 +57,17 @@
                             </select>
                         </div>
                     </div>
+                    
 
                     <!-- Para ver la imagen seleccionada, de lo contrario no se -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 my-4">
-                        <div class="grid grid-cols-1">
-                            <img src="/imagen/{{ $lesson->imagen }}" class="border rounded shadow" id="imagenSeleccionada" style="max-height: 200px;">
+                        <div class="d-flex flex-wrap" id="imagenSeleccionada">
+                            @foreach($lessonimage as $key => $value)
+                            <div class="mb-1">
+                                <a href="{{ route('lessonimages.eliminar', $value->id) }}" class="btn btn-danger btn-sm position-absolute ms-1 mt-1 border imgEliminar">x</a>
+                                <img src="/imagen/{{ $value->imagen }}" class="border rounded shadow mb-1 me-2" style="max-height: 200px;">
+                            </div>
+                            @endforeach
                         </div>
                         <div class="grid grid-cols-1">
                             <audio controls src="/audio/{{ $lesson->audio }}" id="audioSeleccionado"></audio>
@@ -79,7 +85,7 @@
                                         </svg>
                                         <p class='text-sm text-gray-400 group-hover:text-purple-600 py-2 tracking-wider'>Seleccione la imagen</p>
                                     </div>
-                                    <input name="imagen" id="imagen" type='file' class="hidden" />
+                                    <input name="imagen[]" id="imagen" type='file' class="hidden" multiple />
                                 </label>
                             </div>
                         </div>
@@ -102,14 +108,14 @@
                     </div>
 
                     <div class='flex items-center justify-center  md:gap-8 gap-4 pt-4'>
-                        <a class="btn btn-secondary my-2 ms-2 btn-sm" onclick="submitForms()">Agregar pregunta {{ count($preguntas) + 1 }}</a>
+                        <a class="btn btn-secondary my-2 ms-2 btn-sm" onclick="submitForms()">Agregar pregunta {{ count($preguntas) }}</a>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mt-4">
                         @foreach($preguntas as $key => $value)
                         <div class="grid grid-cols-1">
                             <div class="mb-1">
-                                <label class="form-label text-uppercase fw-bold">pregunta {{$key+1}}:</label>
+                                <label class="form-label text-uppercase fw-bold">pregunta {{$value->id_pregunta}}:</label>
                                 <a href="{{ route('preguntas.eliminar', $value->id) }}" class="btn btn-danger btn-sm formEliminar">Eliminar</a>
                             </div>
                             <input name="id_lesson[]" value="{{ $value->id_lesson }}" type="hidden" />
@@ -161,7 +167,7 @@
                     event.preventDefault()
                     event.stopPropagation()
                     Swal.fire({
-                        title: '¿Confirma la eliminación del registro?',
+                        title: '¿Confirma la eliminación de la pregunta?',
                         icon: 'error',
                         showCancelButton: true,
                         confirmButtonColor: '#dc3545',
@@ -169,8 +175,30 @@
                         confirmButtonText: 'Confirmar'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = "{{ route('preguntas.eliminar', $value->id) }}";
-                            Swal.fire('¡Eliminado!', 'El registro ha sido eliminado exitosamente.', 'success');
+                            window.location.href = this.getAttribute("href");
+                            Swal.fire('¡Eliminado!', 'La pregunta ha sido eliminado exitosamente.', 'success');
+                        }
+                    })
+                }, false)
+            })
+
+        var imgEliminar = document.querySelectorAll('.imgEliminar')
+        Array.prototype.slice.call(imgEliminar)
+            .forEach(function(form) {
+                form.addEventListener('click', function(event) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    Swal.fire({
+                        title: '¿Confirma la eliminación de la imagen?',
+                        icon: 'error',
+                        showCancelButton: true,
+                        confirmButtonColor: '#dc3545',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Confirmar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = this.getAttribute("href");
+                            Swal.fire('¡Eliminado!', 'La imagen ha sido eliminado exitosamente.', 'success');
                         }
                     })
                 }, false)
@@ -186,12 +214,11 @@
     }
 
     $(document).ready(function(e) {
-        $('#imagen').change(function() {
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                $('#imagenSeleccionada').attr('src', e.target.result);
+        $("#imagen").change(function() {
+            var total_file = document.getElementById("imagen").files.length;
+            for (var i = 0; i < total_file; i++) {
+                $('#imagenSeleccionada').append("<img class='border rounded shadow mb-1 me-2' style='max-height: 200px;' src='" + URL.createObjectURL(event.target.files[i]) + "'>");
             }
-            reader.readAsDataURL(this.files[0]);
         });
         $('#audio').change(function() {
             let reader = new FileReader();

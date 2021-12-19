@@ -16,6 +16,7 @@ class CreateLessonsTable extends Migration
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
             $table->string('slug')->nullable();
+            $table->integer('orden')->nullable();
             $table->string('titulo')->nullable();
             $table->string('descripcion')->nullable();
             $table->integer('preguntas')->nullable();
@@ -31,7 +32,6 @@ class CreateLessonsTable extends Migration
             ->constrained('tipos')
             ->cascadeOnUpdate()
             ->nullOnDelete();
-            $table->string('imagen')->nullable();
             $table->string('audio')->nullable();
             $table->timestamps();
         });

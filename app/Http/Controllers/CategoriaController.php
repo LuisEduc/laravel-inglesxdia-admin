@@ -15,7 +15,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $categorias = Categoria::all();
+        $categorias = Categoria::orderByDesc('orden')->get();
         return view('categorias.index', compact('categorias'));
     }
 
@@ -26,7 +26,8 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        return view('categorias.crear');
+        $categorias = Categoria::all();
+        return view('categorias.crear', compact('categorias'));
     }
 
     /**
@@ -37,13 +38,6 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'nombre' => 'required',
-        //     'titulo' => 'required',
-        //     'descripcion' => 'required',
-        //     'nivel' => 'required'
-        // ]);
-
         $categoria = $request->all();
         Categoria::create($categoria);
         return redirect()->route('categorias.index');
@@ -84,7 +78,23 @@ class CategoriaController extends Controller
         $categoria->update($cat);
         return redirect()->route('categorias.index');
     }
-    
+
+    public function updateOrden(Request $request)
+    {
+
+        $cats = Categoria::all();
+
+        foreach ($cats as $cat) {
+            foreach ($request->orden as $orden) {
+                if ($orden['id'] == $cat->id) {
+                    $cat->update(['orden' => $orden['posicion']]);
+                }
+            }
+        }
+        
+        return response('Update Successfully.', 200);
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -99,25 +109,28 @@ class CategoriaController extends Controller
     }
 
     // API
-    public function getCategorias(){
-        $categorias = Categoria::orderBy('posicion')->get();
+    public function getCategorias()
+    {
+        $categorias = Categoria::orderBy('orden')->get();
         $json['categorias'] = $categorias;
         return $json;
     }
 
-    public function getCategoriasSlug($slug){
+    public function getCategoriasSlug($slug)
+    {
         $categoria = Categoria::all()
-        ->where('slug', $slug)->values()->all();
+            ->where('slug', $slug)->values()->all();
 
         $lecciones = DB::table('lessons')
-        ->select('lessons.id','lessons.slug', 'lessons.titulo','lessons.descripcion','lessons.imagen','lessons.audio','lessons.id_categoria','categorias.slug as slug_cat')
-        ->join('categorias','categorias.id','=','lessons.id_categoria')
-        ->where('categorias.slug', $slug)
-        ->get();
+            ->select('lessons.id','lessons.orden', 'lessons.slug', 'lessons.titulo', 'lessons.descripcion', 'lessons.imagen', 'lessons.audio', 'lessons.id_categoria', 'categorias.slug as slug_cat')
+            ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
+            ->where('categorias.slug', $slug)
+            ->orderBy('lessons.orden')
+            ->get();
 
         $json['categoria'] = $categoria;
         $json['lecciones'] = $lecciones;
-        
+
         return $json;
     }
 }

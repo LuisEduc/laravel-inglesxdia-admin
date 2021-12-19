@@ -9,11 +9,11 @@ class Categoria extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'slug','posicion','titulo','descripcion','nivel','icono' ];
+    protected $fillable = [ 'slug','orden','titulo','descripcion','nivel','icono' ];
 
-    protected $hidden = ['created_at', 'updated_at', 'posicion'];
+    protected $hidden = ['created_at', 'updated_at', 'orden'];
 
     public function lessons(){
-        return $this->hasMany(Categoria::class, 'id');
+        return $this->hasMany(Lesson::class, 'id');
     }
 }

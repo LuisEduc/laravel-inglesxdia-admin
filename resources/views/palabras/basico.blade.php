@@ -12,7 +12,6 @@
                 <th scope="col" class="d-none">ID</th>
                 <th scope="col">P_ES</th>
                 <th scope="col">P_IN</th>
-                <th scope="col">PRON</th>
                 <th scope="col">T_ES</th>
                 <th scope="col">T_IN</th>
                 <th scope="col">F_ES</th>
@@ -28,7 +27,6 @@
                 <td class="d-none">{{$palabra->id}}</td>
                 <td>{{$palabra->p_es}}</td>
                 <td>{{$palabra->p_in}}</td>
-                <td>{{$palabra->pron_aprox}}</td>
                 <td>{{$palabra->t_es}}</td>
                 <td>{{$palabra->t_in}}</td>
                 <td>{{$palabra->f_es}}</td>

@@ -15,7 +15,7 @@ class DiariopalabraController extends Controller
      */
     public function index()
     {
-        $diariopalabras = Diariopalabra::orderByDesc('id')->get();
+        $diariopalabras = Diariopalabra::orderByDesc('orden')->get();
         return view('diariopalabras.index', compact('diariopalabras'));
     }
 
@@ -26,7 +26,8 @@ class DiariopalabraController extends Controller
      */
     public function create()
     {
-        return view('diariopalabras.crear');
+        $diariopalabras = Diariopalabra::all();
+        return view('diariopalabras.crear', compact('diariopalabras'));
     }
 
     /**
@@ -120,6 +121,22 @@ class DiariopalabraController extends Controller
         return redirect()->route('diariopalabras.index');
     }
 
+    public function updateOrden(Request $request)
+    {
+
+        $palabras = Diariopalabra::all();
+
+        foreach ($palabras as $pal) {
+            foreach ($request->orden as $orden) {
+                if ($orden['id'] == $pal->id) {
+                    $pal->update(['orden' => $orden['posicion']]);
+                }
+            }
+        }
+        
+        return response('Update Successfully.', 200);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -137,11 +154,11 @@ class DiariopalabraController extends Controller
     // API
     public function getPalabras()
     {
-        // $dia = date('d');
-        $dia = 3;
-        // $mes = date('m');
-        $mes = 1;
-        $palabras = Diariopalabra::orderByDesc('id')
+        $dia = date('d');
+        // $dia = 3;
+        $mes = date('m');
+        // $mes = 1;
+        $palabras = Diariopalabra::orderBy('orden')
             ->where('mes', $mes)->take($dia)
             ->get(['id', 'mes', 'imagen', 'audio']);
         $json['palabras'] = $palabras;

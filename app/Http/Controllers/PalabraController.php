@@ -34,7 +34,7 @@ class PalabraController extends Controller
             ->get();
         return view('palabras.medio', compact('palabras'));
     }
-
+    
     public function avanzado()
     {
         $palabras = Palabra::orderByDesc('id')

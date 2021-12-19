@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDiariopalabrasTable extends Migration
+class CreateLessonimagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateDiariopalabrasTable extends Migration
      */
     public function up()
     {
-        Schema::create('diariopalabras', function (Blueprint $table) {
+        Schema::create('lessonimages', function (Blueprint $table) {
             $table->id();
-            $table->integer('mes')->nullable();
-            $table->integer('orden')->nullable();
-            $table->string('palabras_es')->nullable();
-            $table->string('palabras_in')->nullable();
+            $table->foreignId('id_lesson')
+            ->nullable()
+            ->constrained('lessons')
+            ->cascadeOnUpdate()
+            ->cascadeOnDelete();
+            $table->integer('id_imagen')->nullable();
             $table->string('imagen')->nullable();
-            $table->string('audio')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ class CreateDiariopalabrasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diariopalabras');
+        Schema::dropIfExists('lessonimages');
     }
 }

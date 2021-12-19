@@ -5,12 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Diariopalabra extends Model
+class Lessonimage extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'mes','orden','palabras_es','palabras_in','imagen','audio' ];
+    protected $fillable = [ 'id_imagen', 'imagen' ];
 
     protected $hidden = ['created_at', 'updated_at'];
-    
+
+    public function lessons(){
+        return $this->belongsTo(Lesson::class, 'id_lesson');
+    }
+
 }

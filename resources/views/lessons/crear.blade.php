@@ -13,19 +13,16 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">slug:</label>
-                            <input name="slug" class="form-control rounded" type="text" value="verbos_3"  />
+                            <input name="slug" class="form-control rounded" type="text"/>
+                            <input name="orden" type="hidden" value="{{ count($lecciones) + 1 }}" />
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">título:</label>
-                            <input name="titulo" class="form-control rounded" type="text" value="Verbos que debes saber (p3)"  />
-                        </div>
-                        <div class="grid grid-cols-1">
-                            <label class="form-label text-uppercase">descripción:</label>
-                            <input name="descripcion" class="form-control rounded" type="text" value="Verbos que debes saber (p3)"  />
+                            <input name="titulo" class="form-control rounded" type="text" />
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">categoría:</label>
-                            <select name="id_categoria" class="form-control rounded" type="number" >
+                            <select name="id_categoria" class="form-control rounded" type="number">
                                 @foreach($categorias as $key => $value)
                                 <option value="{{ $value->id }}">{{ $value->titulo }}</option>
                                 @endforeach
@@ -33,29 +30,33 @@
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">cantidad de preguntas:</label>
-                            <input name="preguntas" class="form-control rounded" type="number" value="2"  />
+                            <input name="preguntas" class="form-control rounded" type="number" value="2" />
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">estado:</label>
-                            <select name="estado" class="form-control rounded" type="text" >
+                            <select name="estado" class="form-control rounded" type="text">
                                 <option value="publica">Publica</option>
                                 <option value="privada">Privada</option>
                             </select>
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">tipo:</label>
-                            <select name="id_tipo" class="form-control rounded" type="number" >
+                            <select name="id_tipo" class="form-control rounded" type="number">
                                 @foreach($tipos as $key => $value)
                                 <option value="{{ $value->id }}">{{ $value->slug }}</option>
                                 @endforeach
                             </select>
                         </div>
+                        <div class="grid grid-cols-1">
+                            <label class="form-label text-uppercase">descripción:</label>
+                            <textarea name="descripcion" class="form-control rounded" type="text" rows="2"></textarea>
+                        </div>
                     </div>
 
                     <!-- Para ver la imagen seleccionada, de lo contrario no se -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 my-4">
-                        <div class="grid grid-cols-1">
-                            <img class="border rounded shadow" id="imagenSeleccionada" style="max-height: 200px;">
+                        <div class="d-flex flex-wrap" id="imagenSeleccionada">
+                            <!-- <img class="border rounded shadow" id="imagenSeleccionada" style="max-height: 200px;"> -->
                         </div>
                         <div class="grid grid-cols-1">
                             <audio controls id="audioSeleccionado"></audio>
@@ -73,7 +74,7 @@
                                         </svg>
                                         <p class='text-sm text-gray-400 group-hover:text-purple-600 py-2 tracking-wider'>Seleccione la imagen</p>
                                     </div>
-                                    <input name="imagen" id="imagen" type='file' class="hidden" />
+                                    <input name="imagen[]" id="imagen" type='file' class="hidden" multiple/>
                                 </label>
                             </div>
                         </div>
@@ -109,21 +110,28 @@
 <!-- Script para ver la imagen antes de CREAR UN NUEVO PRODUCTO -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
-
     $(document).ready(function(e) {
-        $('#imagen').change(function() {
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                $('#imagenSeleccionada').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(this.files[0]);
-        });
+        // $('#imagen').change(function() {
+        //     let reader = new FileReader();
+        //     reader.onload = (e) => {
+        //         $('#imagenSeleccionada').attr('src', e.target.result);
+        //     }
+        //     reader.readAsDataURL(this.files[0]);
+        // });
         $('#audio').change(function() {
             let reader = new FileReader();
             reader.onload = (e) => {
                 $('#audioSeleccionado').attr('src', e.target.result);
             }
             reader.readAsDataURL(this.files[0]);
+        });
+
+        $("#imagen").change(function() {
+            $('#imagenSeleccionada').html("");
+            var total_file = document.getElementById("imagen").files.length;
+            for (var i = 0; i < total_file; i++) {
+                $('#imagenSeleccionada').append("<img class='border rounded shadow mb-1 me-2' style='max-height: 200px;' src='" + URL.createObjectURL(event.target.files[i]) + "'>");
+            }
         });
     });
 </script>

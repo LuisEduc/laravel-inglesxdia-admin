@@ -14,11 +14,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">Palabra español:</label>
-                            <input name="p_es" class="form-control rounded" type="text" value="Hola"  />
+                            <input name="p_es" class="form-control rounded" type="text"/>
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">Palabra inglés:</label>
-                            <input name="p_in" class="form-control rounded" type="text" value="Hello"  />
+                            <input name="p_in" class="form-control rounded" type="text"/>
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">Tipo español:</label>
@@ -40,11 +40,11 @@
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">Frase español:</label>
-                            <input name="f_es" class="form-control rounded" type="text" value="Hola amigo"  />
+                            <input name="f_es" class="form-control rounded" type="text"/>
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">Frase inglés:</label>
-                            <input name="f_in" class="form-control rounded" type="text" value="Hello friend"  />
+                            <input name="f_in" class="form-control rounded" type="text"/>
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">nivel:</label>

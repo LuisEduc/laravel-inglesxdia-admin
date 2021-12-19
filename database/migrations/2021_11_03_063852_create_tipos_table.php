@@ -16,7 +16,7 @@ class CreateTiposTable extends Migration
         Schema::create('tipos', function (Blueprint $table) {
             $table->id();
             $table->string('slug')->nullable();
-            $table->integer('posicion')->nullable();
+            $table->integer('orden')->nullable();
             $table->string('titulo')->nullable();
             $table->string('icono')->nullable();
             $table->string('color')->nullable();

@@ -14,15 +14,12 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">slug:</label>
-                            <input name="slug" class="form-control rounded" type="text" value="recientes"  />
-                        </div>
-                        <div class="grid grid-cols-1">
-                            <label class="form-label text-uppercase">posición:</label>
-                            <input name="posicion" class="form-control rounded" type="number" value="1"  />
+                            <input name="slug" class="form-control rounded" type="text"/>
+                            <input name="orden" type="hidden" value="{{ count($tipos) + 1 }}" />
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">título:</label>
-                            <input name="titulo" class="form-control rounded" type="text" value="Lecciones recientes"  />
+                            <input name="titulo" class="form-control rounded" type="text"/>
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">ícono:</label>
@@ -30,11 +27,11 @@
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">color:</label>
-                            <input name="color" class="form-control rounded" type="text" value="#ffff00"  />
+                            <input name="color" class="form-control rounded" type="text" />
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">fondo:</label>
-                            <input name="bg" class="form-control rounded" type="text" value="#7c76b9"  />
+                            <input name="bg" class="form-control rounded" type="text" />
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">estado:</label>
