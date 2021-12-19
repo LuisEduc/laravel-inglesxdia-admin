@@ -30,7 +30,7 @@
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">cantidad de preguntas:</label>
-                            <input name="preguntas" class="form-control rounded" type="number" value="2" />
+                            <input name="preguntas" class="form-control rounded" type="number" value="5" />
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">estado:</label>
