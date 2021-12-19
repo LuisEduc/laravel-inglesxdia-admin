@@ -57,14 +57,14 @@
                             </select>
                         </div>
                     </div>
-                    
+
 
                     <!-- Para ver la imagen seleccionada, de lo contrario no se -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 my-4">
                         <div class="d-flex flex-wrap" id="imagenSeleccionada">
                             @foreach($lessonimage as $key => $value)
-                            <div class="mb-1">
-                                <a href="{{ route('lessonimages.eliminar', $value->id) }}" class="btn btn-danger btn-sm position-absolute ms-1 mt-1 border imgEliminar">x</a>
+                            <div class="bloque-img" data-id="{{ $value->id }}">
+                                <a href="{{ route('lessonimages.eliminar', [ 'id'=>$value->id, 'id_lesson'=>$value->id_lesson ]) }}" class="btn btn-danger btn-sm position-absolute ms-1 mt-1 border imgEliminar">x</a>
                                 <img src="/imagen/{{ $value->imagen }}" class="border rounded shadow mb-1 me-2" style="max-height: 200px;">
                             </div>
                             @endforeach
@@ -116,7 +116,7 @@
                         <div class="grid grid-cols-1">
                             <div class="mb-1">
                                 <label class="form-label text-uppercase fw-bold">pregunta {{$value->id_pregunta}}:</label>
-                                <a href="{{ route('preguntas.eliminar', $value->id) }}" class="btn btn-danger btn-sm formEliminar">Eliminar</a>
+                                <a href="{{ route('preguntas.eliminar', [ 'id'=>$value->id, 'id_lesson'=>$value->id_lesson ]) }}" class="btn btn-danger btn-sm formEliminar">Eliminar</a>
                             </div>
                             <input name="id_lesson[]" value="{{ $value->id_lesson }}" type="hidden" />
                             <input name="id_pregunta[]" value="{{ $value->id_pregunta }}" type="hidden" />
@@ -208,6 +208,7 @@
 
 <!-- Script para ver la imagen antes de CREAR UN NUEVO PRODUCTO -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <script>
     function submitForms() {
         document.getElementById("crearpregunta").submit();
@@ -220,6 +221,7 @@
                 $('#imagenSeleccionada').append("<img class='border rounded shadow mb-1 me-2' style='max-height: 200px;' src='" + URL.createObjectURL(event.target.files[i]) + "'>");
             }
         });
+
         $('#audio').change(function() {
             let reader = new FileReader();
             reader.onload = (e) => {
@@ -227,5 +229,41 @@
             }
             reader.readAsDataURL(this.files[0]);
         });
+
+        $("#imagenSeleccionada").sortable({
+            items: "div",
+            cursor: 'move',
+            opacity: 0.6,
+            update: function() {
+                sendOrderToServer();
+            }
+        });
+
+        function sendOrderToServer() {
+            let orden = [];
+            $('div.bloque-img').each(function(index, element) {
+                let filas = $('bloque-img').length
+                orden.push({
+                    id: $(this).attr('data-id'),
+                    posicion: index
+                });
+            });
+
+            $.ajax({
+                url: "{{ route('lessonimages.updateorden') }}",
+                type: 'POST',
+                dataType: "json",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    orden: orden,
+                },
+                success: function(data) {
+                    console.log('success');
+                }
+            });
+
+        }
     });
 </script>

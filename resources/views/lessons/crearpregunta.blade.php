@@ -12,8 +12,7 @@
                 <form action="{{ route('preguntas.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mt-4">
-                    @for($index = 0; $index <= $preguntas - 1; $index++) 
-                        <div class="grid grid-cols-1">
+                        @for($index = 0; $index <= $preguntas - 1; $index++) <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">pregunta {{$index}}:</label>
                             <input name="id_lesson[]" value="{{$id_lesson}}" type="hidden" />
                             <input name="id_pregunta[]" value="{{$index}}" type="hidden" />
@@ -24,14 +23,15 @@
                             <input name="opcion3[]" class="form-control rounded mb-1" type="text" placeholder="Opcion 3" />
                             <small>Respuesta</small>
                             <input name="respuesta[]" class="form-control rounded mb-1" type="number" placeholder="Respuesta" />
-                        </div>
-                        @endfor
                     </div>
-                    <div class='flex items-center justify-center  md:gap-8 gap-4 pt-4'>
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                    </div>
-                </form>
+                    @endfor
             </div>
+            <div class='flex items-center justify-center  md:gap-8 gap-4 pt-4'>
+                <a href="{{ route('lessons.index') }}" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
+            </form>
         </div>
+    </div>
     </div>
 </x-app-layout>

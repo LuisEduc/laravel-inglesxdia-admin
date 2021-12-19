@@ -73,6 +73,22 @@ class LessonimageController extends Controller
         //
     }
 
+    public function updateOrden(Request $request)
+    {
+
+        $imgs = Lessonimage::all();
+
+        foreach ($imgs as $img) {
+            foreach ($request->orden as $orden) {
+                if ($orden['id'] == $img->id) {
+                    $img->update(['id_imagen' => $orden['posicion']]);
+                }
+            }
+        }
+
+        return response('Update Successfully.', 200);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -84,11 +100,20 @@ class LessonimageController extends Controller
         //
     }
 
-    public function eliminar($id)
+    public function eliminar($id, $id_lesson)
     {
         $lessonimage = Lessonimage::find($id);
         $lessonimage->delete();
         File::delete("imagen/$lessonimage->imagen");
+
+        $images = Lessonimage::where('id_lesson', $id_lesson)
+        ->orderBy('id_imagen')
+        ->get();
+
+        foreach ($images as $key => $img) {
+            $img->update(['id_imagen' => $key]);
+        }
+
         return redirect()->back();
     }
 }

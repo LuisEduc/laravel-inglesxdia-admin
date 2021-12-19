@@ -29,8 +29,8 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     
-    Route::get('/preguntas/eliminar/{id}', 'App\Http\Controllers\PreguntaController@eliminar')->name('preguntas.eliminar');
-    Route::get('/lessonimages/eliminar/{id}', 'App\Http\Controllers\LessonimageController@eliminar')->name('lessonimages.eliminar');
+    Route::get('/preguntas/eliminar/{id}/{id_lesson}', 'App\Http\Controllers\PreguntaController@eliminar')->name('preguntas.eliminar');
+    Route::get('/lessonimages/eliminar/{id}/{id_lesson}', 'App\Http\Controllers\LessonimageController@eliminar')->name('lessonimages.eliminar');
     Route::get('/palabras/basico', 'App\Http\Controllers\PalabraController@basico')->name('palabras.basico');
     Route::get('/palabras/medio', 'App\Http\Controllers\PalabraController@medio')->name('palabras.medio');
     Route::get('/palabras/avanzado', 'App\Http\Controllers\PalabraController@avanzado')->name('palabras.avanzado');
@@ -46,6 +46,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('/lessonimages', LessonimageController::class);
 
     
+    Route::post('/lessonimages/updateorden', 'App\Http\Controllers\LessonimageController@updateOrden')->name('lessonimages.updateorden');
     Route::post('/categorias/updateorden', 'App\Http\Controllers\CategoriaController@updateOrden')->name('categorias.updateorden');
     Route::post('/tipos/updateorden', 'App\Http\Controllers\TipoController@updateOrden')->name('tipos.updateorden');
     Route::post('/lessons/updateorden', 'App\Http\Controllers\LessonController@updateOrden')->name('lessons.updateorden');

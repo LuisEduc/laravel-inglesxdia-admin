@@ -158,7 +158,7 @@ class DiariopalabraController extends Controller
         // $dia = 3;
         $mes = date('m');
         // $mes = 1;
-        $palabras = Diariopalabra::orderBy('orden')
+        $palabras = Diariopalabra::orderByDesc('orden')
             ->where('mes', $mes)->take($dia)
             ->get(['id', 'mes', 'imagen', 'audio']);
         $json['palabras'] = $palabras;

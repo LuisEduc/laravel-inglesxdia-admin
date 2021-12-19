@@ -14,9 +14,9 @@
                     <table id="diariopalabras" class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
+                                <th class="d-none" scope="col">ID</th>
                                 <th scope="col">MES</th>
-                                <th scope="col">ORDEN</th>
+                                <th class="d-none" scope="col">ORDEN</th>
                                 <th scope="col">PALABRAS EN ESPAÑOL</th>
                                 <th scope="col">PALABRAS EN INGLÉS</th>
                                 <th scope="col">IMAGEN</th>
@@ -27,9 +27,9 @@
                         <tbody id="tablecontents" value="{{ count($diariopalabras) }}">
                             @foreach($diariopalabras as $diariopalabra)
                             <tr class="fila" data-id="{{ $diariopalabra->id }}">
-                                <td>{{$diariopalabra->id}}</td>
+                                <td class="d-none" >{{$diariopalabra->id}}</td>
                                 <td>{{$diariopalabra->mes}}</td>
-                                <td>{{$diariopalabra->orden}}</td>
+                                <td class="d-none" >{{$diariopalabra->orden}}</td>
                                 <td>{{$diariopalabra->palabras_es}}</td>
                                 <td>{{$diariopalabra->palabras_in}}</td>
                                 <td>

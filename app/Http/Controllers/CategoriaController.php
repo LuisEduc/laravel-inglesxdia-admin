@@ -111,7 +111,7 @@ class CategoriaController extends Controller
     // API
     public function getCategorias()
     {
-        $categorias = Categoria::orderBy('orden')->get();
+        $categorias = Categoria::orderByDesc('orden')->get();
         $json['categorias'] = $categorias;
         return $json;
     }
@@ -122,10 +122,12 @@ class CategoriaController extends Controller
             ->where('slug', $slug)->values()->all();
 
         $lecciones = DB::table('lessons')
-            ->select('lessons.id','lessons.orden', 'lessons.slug', 'lessons.titulo', 'lessons.descripcion', 'lessons.imagen', 'lessons.audio', 'lessons.id_categoria', 'categorias.slug as slug_cat')
+            ->select('lessons.id','lessons.orden', 'lessons.slug', 'lessons.titulo', 'lessons.descripcion', 'lessonimages.imagen', 'lessons.audio', 'lessons.id_categoria', 'categorias.slug as slug_cat')
             ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
+            ->join('lessonimages', 'lessonimages.id_lesson', '=', 'lessons.id')
             ->where('categorias.slug', $slug)
-            ->orderBy('lessons.orden')
+            ->where('lessonimages.id_imagen', '0')
+            ->orderByDesc('lessons.orden')
             ->get();
 
         $json['categoria'] = $categoria;

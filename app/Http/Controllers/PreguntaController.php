@@ -108,10 +108,19 @@ class PreguntaController extends Controller
         //
     }
 
-    public function eliminar($id)
+    public function eliminar($id, $id_lesson)
     {
         $pregunta = Pregunta::find($id);
         $pregunta->delete();
+
+        $preguntas = Pregunta::where('id_lesson', $id_lesson)
+        ->orderBy('id_pregunta')
+        ->get();
+
+        foreach ($preguntas as $key => $preg) {
+            $preg->update(['id_pregunta' => $key]);
+        }
+
         return redirect()->back();
     }
 }

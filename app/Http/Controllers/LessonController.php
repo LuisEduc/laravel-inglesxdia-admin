@@ -104,7 +104,9 @@ class LessonController extends Controller
         $categorias = Categoria::all();
         $tipos = Tipo::all();
         $preguntas = Pregunta::where('id_lesson', $lesson->id)->get();
-        $lessonimage = Lessonimage::where('id_lesson', $lesson->id)->get();
+        $lessonimage = Lessonimage::where('id_lesson', $lesson->id)
+        ->orderBy('id_imagen')
+        ->get();
         return view('lessons.editar', compact('lesson', 'categorias', 'tipos', 'preguntas', 'lessonimage'));
     }
 
@@ -235,10 +237,12 @@ class LessonController extends Controller
     public function getLecciones()
     {
         $lecciones = DB::table('lessons')
-            ->select('lessons.id', 'lessons.orden', 'lessons.slug', 'lessons.titulo', 'lessons.descripcion', 'lessons.imagen', 'lessons.audio', 'categorias.slug as slug_cat')
+            ->select('lessons.id', 'lessons.orden', 'lessons.slug', 'lessons.titulo', 'lessons.descripcion', 'lessonimages.imagen', 'lessons.audio', 'categorias.slug as slug_cat')
             ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
+            ->join('lessonimages', 'lessonimages.id_lesson', '=', 'lessons.id')
             ->where('lessons.estado', 'publica')
-            ->orderBy('lessons.orden')
+            ->where('lessonimages.id_imagen', '0')
+            ->orderByDesc('lessons.orden')
             ->get();
 
         return $lecciones;
@@ -248,10 +252,12 @@ class LessonController extends Controller
     {
 
         $lecciones = DB::table('lessons')
-            ->select('lessons.id', 'lessons.orden', 'lessons.slug', 'lessons.titulo', 'lessons.descripcion', 'lessons.imagen', 'lessons.audio', 'categorias.slug')
+            ->select('lessons.id', 'lessons.orden', 'lessons.slug', 'lessons.titulo', 'lessons.descripcion', 'lessonimages.imagen', 'lessons.audio', 'categorias.slug')
             ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
+            ->join('lessonimages', 'lessonimages.id_lesson', '=', 'lessons.id')
             ->where('id_categoria', $id_categoria)
-            ->orderBy('lessons.orden')
+            ->where('lessonimages.id_imagen', '0')
+            ->orderByDesc('lessons.orden')
             ->get();
         $json['lecciones'] = $lecciones;
         return $json;
@@ -266,14 +272,22 @@ class LessonController extends Controller
             ->get();
 
         $lecciones = DB::table('lessons')
-            ->select('lessons.id', 'lessons.slug', 'lessons.titulo', 'lessons.descripcion', 'lessons.imagen', 'lessons.audio', 'categorias.slug as slug_cat')
+            ->select('lessons.id', 'lessons.slug', 'lessons.titulo', 'lessons.descripcion', 'lessons.audio', 'categorias.slug as slug_cat')
             ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
             ->where('categorias.slug', $slug_cat)
             ->where('lessons.slug', $slug)
             ->get();
 
+        $imagenes = DB::table('lessons')
+            ->select('lessonimages.imagen')
+            ->join('lessonimages', 'lessonimages.id_lesson', '=', 'lessons.id')
+            ->where('lessons.slug', $slug)
+            ->orderBy('lessonimages.id_imagen')
+            ->get();
+
         $json['leccion'] = $lecciones;
         $json['preguntas'] = $preguntas;
+        $json['imagenes'] = $imagenes;
         return $json;
     }
 
@@ -288,13 +302,15 @@ class LessonController extends Controller
         $tipos = Tipo::all()
             ->where('estado', 'publica')
             ->where('slug', '!=', 'normal')
-            ->sortBy('orden')->values()->all();
+            ->sortByDesc('orden')->values()->all();
 
         $lecciones = DB::table('lessons')
-            ->select('lessons.id', 'lessons.orden', 'lessons.slug', 'lessons.titulo', 'lessons.descripcion', 'lessons.imagen', 'lessons.audio', 'lessons.id_categoria', 'lessons.id_tipo', 'categorias.slug as slug_cat')
+            ->select('lessons.id', 'lessons.slug', 'lessons.titulo', 'lessons.descripcion', 'lessonimages.imagen', 'lessons.audio', 'lessons.id_categoria', 'lessons.id_tipo', 'categorias.slug as slug_cat')
             ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
+            ->join('lessonimages', 'lessonimages.id_lesson', '=', 'lessons.id')
             ->where('lessons.estado', 'publica')
-            ->orderBy('lessons.orden')
+            ->where('lessonimages.id_imagen', '0')
+            ->orderByDesc('lessons.orden')
             ->get();
 
         foreach ($tipos as $i => $tipo) {

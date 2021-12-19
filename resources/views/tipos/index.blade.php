@@ -16,7 +16,7 @@
                             <tr>
                                 <th scope="col" class="d-none">ID</th>
                                 <th scope="col">SLUG</th>
-                                <th scope="col">ORDEN</th>
+                                <th class="d-none" scope="col">ORDEN</th>
                                 <th scope="col">TITULO</th>
                                 <th scope="col">ICONO</th>
                                 <th scope="col">COLOR</th>
@@ -30,7 +30,7 @@
                             <tr class="fila" data-id="{{ $tipo->id }}">
                                 <td class="d-none">{{$tipo->id}}</td>
                                 <td>{{$tipo->slug}}</td>
-                                <td>{{$tipo->orden}}</td>
+                                <td class="d-none" >{{$tipo->orden}}</td>
                                 <td>{{$tipo->titulo}}</td>
                                 <td>{{$tipo->icono}}</td>
                                 <td>{{$tipo->color}}</td>

@@ -14,9 +14,9 @@
                     <table id="lessons" class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
+                                <th class="d-none" scope="col">ID</th>
                                 <th scope="col">SLUG</th>
-                                <th scope="col">ORDEN</th>
+                                <th class="d-none" scope="col">ORDEN</th>
                                 <th scope="col">TITULO</th>
                                 <th scope="col">DESCRIPCION</th>
                                 <th scope="col">CAT</th>
@@ -29,9 +29,9 @@
                         <tbody id="tablecontents" value="{{ count($lessons) }}">
                             @foreach($lessons as $lesson)
                             <tr class="fila" data-id="{{ $lesson->id }}">
-                                <td>{{$lesson->id}}</td>
+                                <td class="d-none" >{{$lesson->id}}</td>
                                 <td>{{$lesson->slug}}</td>
-                                <td>{{$lesson->orden}}</td>
+                                <td class="d-none" >{{$lesson->orden}}</td>
                                 <td>{{$lesson->titulo}}</td>
                                 <td>{{$lesson->descripcion}}</td>
                                 @if(isset($lesson->categorias->slug))
