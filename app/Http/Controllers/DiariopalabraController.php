@@ -39,8 +39,8 @@ class DiariopalabraController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'imagen' => 'image|mimes:jpeg,png,svg,webp|max:1024',
-            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac'
+            'imagen' => 'image|mimes:jpeg,png,svg,webp,JPEG,JPG,PNG,SVG,WEBP|max:1024',
+            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac,MPEG,MPGA,MP3,WAV,AAC'
         ]);
 
         $diariopalabra = $request->all();
@@ -93,15 +93,17 @@ class DiariopalabraController extends Controller
      */
     public function update(Request $request, Diariopalabra $diariopalabra)
     {
+       
         $request->validate([
-            'imagen' => 'image|mimes:jpeg,png,svg,webp|max:1024',
-            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac'
+            'imagen' => 'image|mimes:jpeg,png,svg,webp,JPEG,JPG,PNG,SVG,WEBP|max:1024',
+            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac,MPEG,MPGA,MP3,WAV,AAC'
         ]);
 
         $palabra = $request->all();
         if ($imagen = $request->file('imagen')) {
             $rutaGuardarImg = 'imagen/';
-            $imagenDiariopalabra = date('YmdHis') . "." . $imagen->getClientOriginalExtension();
+            list($sec, $usec) = explode('.', microtime(true));
+            $imagenDiariopalabra = date('YmdHis', $sec) . $usec . "." . $imagen->getClientOriginalExtension();
             $imagen->move($rutaGuardarImg, $imagenDiariopalabra);
             $palabra['imagen'] = "$imagenDiariopalabra";
         } else {
@@ -110,11 +112,12 @@ class DiariopalabraController extends Controller
 
         if ($audio = $request->file('audio')) {
             $rutaGuardarAud = 'audio/';
-            $audioDiariopalabra = date('YmdHis') . "." . $audio->getClientOriginalExtension();
+            list($sec, $usec) = explode('.', microtime(true));
+            $audioDiariopalabra = date('YmdHis', $sec) . $usec . "." . $audio->getClientOriginalExtension();
             $audio->move($rutaGuardarAud, $audioDiariopalabra);
             $palabra['audio'] = "$audioDiariopalabra";
         } else {
-            unset($palabra['imagen']);
+            unset($palabra['audio']);
         }
 
         $diariopalabra->update($palabra);
@@ -133,7 +136,7 @@ class DiariopalabraController extends Controller
                 }
             }
         }
-        
+
         return response('Update Successfully.', 200);
     }
 

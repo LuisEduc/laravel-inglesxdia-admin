@@ -47,11 +47,17 @@ class LessonController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'imagen.*' => 'image|mimes:jpeg,jpg,png,svg,webp,JPEG,JPG,PNG,SVG,WEBP|max:1024',
+            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac,ogg,MPEG,MPGA,MP3,WAV,AAC'
+        ]);
+
         $lesson = $request->except('imagen');
 
         if ($audio = $request->file('audio')) {
             $rutaGuardarAud = 'audio/';
-            $audioLesson = date('YmdHis') . "." . $audio->getClientOriginalExtension();
+            list($sec, $usec) = explode('.', microtime(true));
+            $audioLesson = date('YmdHis', $sec) . $usec . "." . $audio->getClientOriginalExtension();
             $audio->move($rutaGuardarAud, $audioLesson);
             $lesson['audio'] = "$audioLesson";
         }
@@ -121,8 +127,8 @@ class LessonController extends Controller
     {
 
         $request->validate([
-            'imagen.*' => 'image|mimes:jpeg,jpg,png,svg,webp|max:1024',
-            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac,ogg'
+            'imagen.*' => 'image|mimes:jpeg,jpg,png,svg,webp,JPEG,JPG,PNG,SVG,WEBP|max:1024',
+            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac,ogg,MPEG,MPGA,MP3,WAV,AAC'
         ]);
 
         $leccion = $request
@@ -143,7 +149,8 @@ class LessonController extends Controller
                 File::delete($oldAud);
             }
             $rutaGuardarAud = 'audio/';
-            $audioLeccion = date('YmdHis') . "." . $audio->getClientOriginalExtension();
+            list($sec, $usec) = explode('.', microtime(true));
+            $audioLeccion = date('YmdHis', $sec) . $usec . "." . $audio->getClientOriginalExtension();
             $audio->move($rutaGuardarAud, $audioLeccion);
             $leccion['audio'] = "$audioLeccion";
         } else {
