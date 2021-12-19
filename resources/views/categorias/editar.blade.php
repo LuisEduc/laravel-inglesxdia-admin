@@ -35,7 +35,7 @@
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">descripción:</label>
-                            <textarea name="descripcion" class="form-control rounded" type="text" rows="2">{{ $categoria->descripcion }}</textarea>
+                            <textarea name="descripcion" class="form-control rounded" type="text" rows="3">{{ $categoria->descripcion }}</textarea>
                         </div>
                     </div>
 
