@@ -48,8 +48,8 @@ class LessonController extends Controller
     {
 
         $request->validate([
-            'imagen.*' => 'image|mimes:jpeg,jpg,png,svg,webp,JPEG,JPG,PNG,SVG,WEBP|max:1024',
-            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac,ogg,MPEG,MPGA,MP3,WAV,AAC'
+            'imagen.*' => 'image|mimes:jpeg,jpg,png,svg,webp,JPEG,JPG,PNG,SVG,WEBP|max:5000',
+            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac,ogg,MPEG,MPGA,MP3,WAV,AAC|max:5000'
         ]);
 
         $lesson = $request->except('imagen');
@@ -127,8 +127,8 @@ class LessonController extends Controller
     {
 
         $request->validate([
-            'imagen.*' => 'image|mimes:jpeg,jpg,png,svg,webp,JPEG,JPG,PNG,SVG,WEBP|max:1024',
-            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac,ogg,MPEG,MPGA,MP3,WAV,AAC'
+            'imagen.*' => 'image|mimes:jpeg,jpg,png,svg,webp,JPEG,JPG,PNG,SVG,WEBP|max:5000',
+            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac,ogg,MPEG,MPGA,MP3,WAV,AAC|max:5000'
         ]);
 
         $leccion = $request

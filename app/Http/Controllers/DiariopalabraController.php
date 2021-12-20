@@ -39,8 +39,8 @@ class DiariopalabraController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'imagen' => 'image|mimes:jpeg,png,svg,webp,JPEG,JPG,PNG,SVG,WEBP|max:1024',
-            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac,MPEG,MPGA,MP3,WAV,AAC'
+            'imagen' => 'image|mimes:jpeg,png,svg,webp,JPEG,JPG,PNG,SVG,WEBP|max:5000',
+            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac,MPEG,MPGA,MP3,WAV,AAC|max:5000'
         ]);
 
         $diariopalabra = $request->all();
@@ -97,8 +97,8 @@ class DiariopalabraController extends Controller
     {
        
         $request->validate([
-            'imagen' => 'image|mimes:jpeg,png,svg,webp,JPEG,JPG,PNG,SVG,WEBP|max:1024',
-            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac,MPEG,MPGA,MP3,WAV,AAC'
+            'imagen' => 'image|mimes:jpeg,png,svg,webp,JPEG,JPG,PNG,SVG,WEBP|max:5000',
+            'audio' => 'file|mimes:audio/mpeg,mpga,mp3,wav,aac,MPEG,MPGA,MP3,WAV,AAC|max:5000'
         ]);
 
         $palabra = $request->all();
