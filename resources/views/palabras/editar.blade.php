@@ -120,4 +120,17 @@
     }
     });
 
+    $("#t_in").on('change', function() {
+    var value = $(this).val();
+    if (value == "noun") {
+        $("#t_es").val("sustantivo");
+    } else if (value == "adjective") {
+        $("#t_es").val("adjetivo");
+    } else if (value == "verb") {
+        $("#t_es").val("verbo");
+    } else if (value == "adverb") {
+        $("#t_es").val("adverbio");
+    }
+    });
+
 </script>

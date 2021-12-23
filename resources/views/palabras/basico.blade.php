@@ -46,13 +46,13 @@
                 <td>
                     <div class="d-flex justify-content-center" role="group">
                         <!-- botón editar -->
-                        <a href="{{ route('palabras.edit', $palabra->id) }}" class="btn btn-info btn-sm">Editar</a>
+                        <a href="{{ route('palabras.edit', $palabra->id) }}" class="btn btn-info btn-sm"><i class="far fa-edit"></i></a>
 
                         <!-- botón borrar -->
                         <form action="{{ route('palabras.destroy', $palabra->id)}}" method="POST" class="formEliminar">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
+                            <button type="submit" class="btn btn-danger btn-sm ml-2"><i class="far fa-trash-alt"></i></button>
                         </form>
                     </div>
                 </td>

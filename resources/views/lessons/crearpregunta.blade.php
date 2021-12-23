@@ -18,11 +18,11 @@
                             <input name="id_pregunta[]" value="{{$index}}" type="hidden" />
                             <input name="pregunta[]" class="form-control rounded mb-3" type="text" placeholder="Pregunta" />
                             <small>Opciones</small>
-                            <input name="opcion1[]" class="form-control rounded mb-1" type="text" placeholder="Opcion 1" />
-                            <input name="opcion2[]" class="form-control rounded mb-1" type="text" placeholder="Opcion 2" />
-                            <input name="opcion3[]" class="form-control rounded mb-1" type="text" placeholder="Opcion 3" />
+                            <input name="opcion1[]" class="form-control rounded mb-1" type="text" placeholder="Opcion 0" />
+                            <input name="opcion2[]" class="form-control rounded mb-1" type="text" placeholder="Opcion 1" />
+                            <input name="opcion3[]" class="form-control rounded mb-1" type="text" placeholder="Opcion 2" />
                             <small>Respuesta</small>
-                            <input name="respuesta[]" class="form-control rounded mb-1" type="number" placeholder="Respuesta" />
+                            <input name="respuesta[]" class="form-control rounded mb-1" type="number" placeholder="Número de opción" />
                     </div>
                     @endfor
             </div>

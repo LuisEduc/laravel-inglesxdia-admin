@@ -21,11 +21,15 @@
                             <label class="form-label text-uppercase">título:</label>
                             <input name="titulo" class="form-control rounded" type="text" value="{{ $lesson->titulo }}" />
                         </div>
+                        <div>
+                            <label class="form-label text-uppercase">título largo:</label>
+                            <input name="titulo_seo" class="form-control rounded" type="text" value="{{ $lesson->titulo_seo }}" />
+                        </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">descripción:</label>
                             <textarea name="descripcion" class="form-control rounded" type="text" rows="3">{{ $lesson->descripcion }}</textarea>
                         </div>
-                        <div>
+                        <div class="grid grid-cols-1"> 
                             <label class="form-label text-uppercase">categoría:</label>
                             <select name="id_categoria" class="form-control rounded" type="number">
                                 @foreach($categorias as $key => $value)
@@ -116,7 +120,7 @@
                         <div class="grid grid-cols-1">
                             <div class="mb-1">
                                 <label class="form-label text-uppercase fw-bold">pregunta {{$value->id_pregunta}}:</label>
-                                <a href="{{ route('preguntas.eliminar', [ 'id'=>$value->id, 'id_lesson'=>$value->id_lesson ]) }}" class="btn btn-danger btn-sm formEliminar">Eliminar</a>
+                                <a href="{{ route('preguntas.eliminar', [ 'id'=>$value->id, 'id_lesson'=>$value->id_lesson ]) }}" class="btn btn-danger btn-sm formEliminar"><i class="far fa-trash-alt"></i></a>
                             </div>
                             <input name="id_lesson[]" value="{{ $value->id_lesson }}" type="hidden" />
                             <input name="id_pregunta[]" value="{{ $value->id_pregunta }}" type="hidden" />

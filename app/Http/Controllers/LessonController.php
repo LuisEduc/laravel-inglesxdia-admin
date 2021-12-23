@@ -83,8 +83,8 @@ class LessonController extends Controller
             }
         }
 
-        $id_lesson = Lesson::get('id')->last()->id;
-        $preguntas = Lesson::get('preguntas')->last()->preguntas;
+        $id_lesson = $lec_creada->id;
+        $preguntas = $lec_creada->preguntas;
         return view('lessons.crearpregunta', compact('id_lesson', 'preguntas'));
     }
 
@@ -278,7 +278,7 @@ class LessonController extends Controller
             ->get();
 
         $lecciones = DB::table('lessons')
-            ->select('lessons.id', 'lessons.slug', 'lessons.titulo', 'lessons.descripcion', 'lessons.audio', 'categorias.slug as slug_cat')
+            ->select('lessons.id', 'lessons.slug', 'lessons.titulo_seo', 'lessons.descripcion', 'lessons.audio', 'categorias.slug as slug_cat')
             ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
             ->where('categorias.slug', $slug_cat)
             ->where('lessons.slug', $slug)
@@ -348,7 +348,7 @@ class LessonController extends Controller
     public function buscar()
     {
         $lecciones = DB::table('lessons')
-            ->select('lessons.id', 'lessons.titulo', 'lessons.slug', 'categorias.slug as slug_cat')
+            ->select('lessons.id','lessons.id_categoria', 'lessons.titulo_seo', 'lessons.slug', 'categorias.slug as slug_cat')
             ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
             ->where('lessons.estado', 'publica')
             ->get();

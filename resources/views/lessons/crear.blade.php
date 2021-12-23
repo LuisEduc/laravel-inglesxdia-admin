@@ -20,6 +20,14 @@
                             <label class="form-label text-uppercase">título:</label>
                             <input name="titulo" class="form-control rounded" type="text" />
                         </div>
+                        <div>
+                            <label class="form-label text-uppercase">título largo:</label>
+                            <input name="titulo_seo" class="form-control rounded" type="text" />
+                        </div>
+                        <div class="grid grid-cols-1">
+                            <label class="form-label text-uppercase">descripción:</label>
+                            <textarea name="descripcion" class="form-control rounded" type="text" rows="3"></textarea>
+                        </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">categoría:</label>
                             <select name="id_categoria" class="form-control rounded" type="number">
@@ -46,10 +54,6 @@
                                 <option value="{{ $value->id }}">{{ $value->slug }}</option>
                                 @endforeach
                             </select>
-                        </div>
-                        <div class="grid grid-cols-1">
-                            <label class="form-label text-uppercase">descripción:</label>
-                            <textarea name="descripcion" class="form-control rounded" type="text" rows="3"></textarea>
                         </div>
                     </div>
 

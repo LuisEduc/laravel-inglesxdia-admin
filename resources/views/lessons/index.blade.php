@@ -18,11 +18,11 @@
                                 <th scope="col">SLUG</th>
                                 <th class="d-none" scope="col">ORDEN</th>
                                 <th scope="col">TITULO</th>
+                                <th scope="col">TITULO_LARGO</th>
                                 <th scope="col">DESCRIPCION</th>
                                 <th scope="col">CAT</th>
                                 <th scope="col">ESTADO</th>
                                 <th scope="col">TIPO</th>
-                                <th scope="col">AUDIO</th>
                                 <th scope="col">ACCIONES</th>
                             </tr>
                         </thead>
@@ -33,6 +33,7 @@
                                 <td>{{$lesson->slug}}</td>
                                 <td class="d-none" >{{$lesson->orden}}</td>
                                 <td>{{$lesson->titulo}}</td>
+                                <td>{{$lesson->titulo_seo}}</td>
                                 <td>{{$lesson->descripcion}}</td>
                                 @if(isset($lesson->categorias->slug))
                                 <td>{{$lesson->categorias->slug}}</td>
@@ -45,7 +46,6 @@
                                 @else
                                 <td>---</td>
                                 @endif
-                                <td>{{$lesson->audio}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center" role="group">
                                         <form action="{{ route('send.notification', $lesson->id) }}" method="POST" class="formNotificar">
