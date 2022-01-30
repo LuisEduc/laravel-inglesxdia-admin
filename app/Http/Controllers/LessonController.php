@@ -348,7 +348,7 @@ class LessonController extends Controller
     public function buscar()
     {
         $lecciones = DB::table('lessons')
-            ->select('lessons.id','lessons.id_categoria', 'lessons.titulo_seo', 'lessons.slug', 'categorias.slug as slug_cat')
+            ->select('lessons.id','lessons.id_categoria', 'lessons.titulo', 'lessons.slug', 'categorias.slug as slug_cat', 'categorias.titulo as titulo_cat')
             ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
             ->where('lessons.estado', 'publica')
             ->get();
