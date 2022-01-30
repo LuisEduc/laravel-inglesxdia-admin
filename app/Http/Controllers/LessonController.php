@@ -278,7 +278,7 @@ class LessonController extends Controller
             ->get();
 
         $lecciones = DB::table('lessons')
-            ->select('lessons.id', 'lessons.slug', 'lessons.titulo_seo', 'lessons.descripcion', 'lessons.audio', 'categorias.slug as slug_cat')
+            ->select('lessons.id', 'lessons.slug', 'lessons.titulo_seo', 'lessons.titulo', 'lessons.descripcion', 'lessons.audio', 'categorias.slug as slug_cat')
             ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
             ->where('categorias.slug', $slug_cat)
             ->where('lessons.slug', $slug)
