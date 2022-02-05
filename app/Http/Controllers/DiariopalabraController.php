@@ -166,7 +166,7 @@ class DiariopalabraController extends Controller
         $palabras = Diariopalabra::orderBy('orden')
             ->where('mes', $mes)->take($dia)
             ->get(['id', 'mes', 'imagen', 'audio']);
-        $json['palabras'] = $palabras;
+        $json['palabras'] = $palabras->reverse()->values()->all();
         return $json;
     }
 }
