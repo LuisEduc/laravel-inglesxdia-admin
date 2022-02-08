@@ -126,6 +126,7 @@ class CategoriaController extends Controller
             ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
             ->join('lessonimages', 'lessonimages.id_lesson', '=', 'lessons.id')
             ->where('categorias.slug', $slug)
+            ->where('lessons.estado', 'publica')
             ->where('lessonimages.id_imagen', '0')
             ->orderByDesc('lessons.orden')
             ->get();
