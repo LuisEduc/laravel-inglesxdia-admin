@@ -5,7 +5,10 @@
         </h2>
     </x-slot>
 
+
     <div class="py-12">
+
+
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-3 py-3">
 
@@ -29,9 +32,9 @@
                         <tbody id="tablecontents" value="{{ count($lessons) }}">
                             @foreach($lessons as $lesson)
                             <tr class="fila" data-id="{{ $lesson->id }}">
-                                <td class="d-none" >{{$lesson->id}}</td>
+                                <td class="d-none">{{$lesson->id}}</td>
                                 <td>{{$lesson->slug}}</td>
-                                <td class="d-none" >{{$lesson->orden}}</td>
+                                <td class="d-none">{{$lesson->orden}}</td>
                                 <td>{{$lesson->titulo}}</td>
                                 <td>{{$lesson->titulo_seo}}</td>
                                 <td>{{$lesson->descripcion}}</td>
@@ -72,6 +75,30 @@
                 </div>
             </div>
         </div>
+
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
+                <form action="{{ route('custom.notification') }}" method="POST" enctype="multipart/form-data" autocomplete="off" class="formNotificar">
+                    @csrf
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                        <div>
+                            <label class="form-label text-uppercase">título:</label>
+                            <input name="titulo" class="form-control rounded" type="text"/>
+                        </div>
+                        <div class="grid grid-cols-1">
+                            <label class="form-label text-uppercase">descripción:</label>
+                            <textarea name="descripcion" class="form-control rounded" type="text" rows="2"></textarea>
+                        </div>
+                    </div>
+
+                    <div class='flex items-center justify-center  md:gap-8 gap-4 pt-4'>
+                        <button type="submit" class="btn btn-success">Enviar notificación</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
     </div>
 </x-app-layout>
 <script>

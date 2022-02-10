@@ -52,6 +52,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/lessons/updateorden', 'App\Http\Controllers\LessonController@updateOrden')->name('lessons.updateorden');
     Route::post('/diariopalabras/updateorden', 'App\Http\Controllers\DiariopalabraController@updateOrden')->name('diariopalabras.updateorden');
     Route::post('/send-notification/{id}', 'App\Http\Controllers\PushuserController@sendNotification')->name('send.notification');
+    Route::post('/custom-notification', 'App\Http\Controllers\PushuserController@customNotification')->name('custom.notification');
 
     Route::put('/palabras/grabar/{id}', 'App\Http\Controllers\PalabraController@grabar')->name('palabras.grabar');
 
