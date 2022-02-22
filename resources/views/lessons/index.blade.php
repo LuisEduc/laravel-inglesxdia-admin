@@ -89,6 +89,18 @@
                             <label class="form-label text-uppercase">descripción:</label>
                             <textarea name="descripcion" class="form-control rounded" type="text" rows="2"></textarea>
                         </div>
+                        <div>
+                            <label class="form-label text-uppercase">Usuarios:</label>
+                            <input name="users" class="form-control rounded" type="text" value="todos"/>
+                        </div>
+                        <div>
+                            <label class="form-label text-uppercase">Categoria slug:</label>
+                            <input name="cat" class="form-control rounded" type="text"/>
+                        </div>
+                        <div>
+                            <label class="form-label text-uppercase">Lección slug:</label>
+                            <input name="lec" class="form-control rounded" type="text"/>
+                        </div>
                     </div>
 
                     <div class='flex items-center justify-center  md:gap-8 gap-4 pt-4'>
