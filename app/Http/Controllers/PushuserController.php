@@ -100,7 +100,7 @@ class PushuserController extends Controller
             $firebaseToken = Pushuser::whereNotNull('device_token')->pluck('device_token')->all();
         } else {
             $firebaseToken = array();
-            $firebaseToken[] = $request->titulo;
+            $firebaseToken[] = $request->users;
         }
         // dd($firebaseToken);
 
