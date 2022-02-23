@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lesson;
+use App\Models\Lessonimage;
 use App\Models\Pushuser;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,7 @@ class PushuserController extends Controller
     public function sendNotification(Request $request, $id)
     {
         $lesson = Lesson::find($id);
+        $imagen = Lessonimage::where('id_lesson', $id)->first();
         $firebaseToken = Pushuser::whereNotNull('device_token')->pluck('device_token')->all();
 
         $SERVER_API_KEY = 'AAAAn_DFlvQ:APA91bHz_TQ4xD_hOPwLGilct_CJDIHA4W5pk1LnJ7-ApaAejkWb2wUbjUBzBc1E8gVFpdSlXqFzZNCuh7UDVD_J0spOR-b4SBOHi7ZnRO_EK8Ai1fCba0haqryTo5JTT_Gm00cfnvGQ';
@@ -64,6 +66,7 @@ class PushuserController extends Controller
                         "content_available" => true,
                         "priority" => "high",
                         "icon" => "/favicon.png",
+                        "image" => 'https://admin.inglesxdia.com/imagen/' . $imagen->imagen,
                     ],
                     "data" => [
                         "cat" => $lesson->categorias->slug,
