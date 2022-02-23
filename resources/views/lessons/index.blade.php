@@ -94,7 +94,7 @@
                             <input name="users" class="form-control rounded" type="text" value="todos"/>
                         </div>
                         <div>
-                            <label class="form-label text-uppercase">Categoria slug:</label>
+                            <label class="form-label text-uppercase">Categoría slug:</label>
                             <input name="cat" class="form-control rounded" type="text"/>
                         </div>
                         <div>

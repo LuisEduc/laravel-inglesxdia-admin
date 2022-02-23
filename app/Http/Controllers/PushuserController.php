@@ -53,11 +53,6 @@ class PushuserController extends Controller
                         "priority" => "high",
                         "icon" => "/favicon.png",
                     ],
-                    "android" => [
-                        "notification" => [
-                            "imageUrl" => 'https://inglesxdia.tech/_next/image?url=%2Fimg%2Fstudy.svg&w=384&q=75'
-                        ]
-                    ],
                 ];
             } else {
 
@@ -102,7 +97,6 @@ class PushuserController extends Controller
             $firebaseToken = array();
             $firebaseToken[] = $request->users;
         }
-        // dd($firebaseToken);
 
         $SERVER_API_KEY = 'AAAAn_DFlvQ:APA91bHz_TQ4xD_hOPwLGilct_CJDIHA4W5pk1LnJ7-ApaAejkWb2wUbjUBzBc1E8gVFpdSlXqFzZNCuh7UDVD_J0spOR-b4SBOHi7ZnRO_EK8Ai1fCba0haqryTo5JTT_Gm00cfnvGQ';
 
