@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lesson;
+use App\Models\Categoria;
 use App\Models\Lessonimage;
 use App\Models\Pushuser;
 use Illuminate\Http\Request;
@@ -62,7 +63,7 @@ class PushuserController extends Controller
                     "registration_ids" => $dataMil,
                     "notification" => [
                         "title" => 'Lección de hoy 🔊',
-                        "body" => $lesson->titulo,
+                        "body" => $lesson->categorias->titulo.': '.$lesson->titulo,
                         "content_available" => true,
                         "priority" => "high",
                         "icon" => "/favicon.png",
