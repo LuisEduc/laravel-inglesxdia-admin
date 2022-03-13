@@ -52,3 +52,6 @@ Route::get('buscar/{termino}','App\Http\Controllers\LessonController@buscarTermi
 
 // Guardar Token
 Route::post('token', 'App\Http\Controllers\PushuserController@saveToken');
+
+// Elimina el imei del usuario
+Route::delete('delete-pushuser', 'App\Http\Controllers\PushuserController@deletePushUser');

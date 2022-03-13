@@ -53,7 +53,12 @@
                                     <div class="d-flex justify-content-center" role="group">
                                         <form action="{{ route('send.notification', $lesson->id) }}" method="POST" class="formNotificar">
                                             @csrf
-                                            <button type="submit" class="btn btn-success btn-sm">Notificar</button>
+                                            <button type="submit" class="btn btn-success btn-sm">imei</button>
+                                        </form>
+
+                                        <form action="{{ route('send.notification.topic', $lesson->id) }}" method="POST" class="formNotificarTopic">
+                                            @csrf
+                                            <button type="submit" class="btn btn-secondary btn-sm ml-2">topic</button>
                                         </form>
 
                                         <!-- botón editar -->
@@ -147,7 +152,7 @@
                     event.preventDefault()
                     event.stopPropagation()
                     Swal.fire({
-                        title: '¿Confirma el envio de la notificación?',
+                        title: '¿Confirma el envio de la notificación mediante IMEI?',
                         icon: 'info',
                         showCancelButton: true,
                         confirmButtonColor: '#20c997',
@@ -156,7 +161,29 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             this.submit();
-                            Swal.fire('¡Enviado!', 'La notificación se ha enviando exitosamente.', 'success');
+                            Swal.fire('¡Enviado!', 'La notificación se ha enviado exitosamente.', 'success');
+                        }
+                    })
+                }, false)
+            })
+
+        var formNotificar = document.querySelectorAll('.formNotificarTopic')
+        Array.prototype.slice.call(formNotificar)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    Swal.fire({
+                        title: '¿Confirma el envio de la notificación mediante TOPIC?',
+                        icon: 'info',
+                        showCancelButton: true,
+                        confirmButtonColor: '#20c997',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Confirmar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.submit();
+                            Swal.fire('¡Enviado!', 'La notificación se ha enviado exitosamente.', 'success');
                         }
                     })
                 }, false)

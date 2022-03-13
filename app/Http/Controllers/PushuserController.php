@@ -28,6 +28,17 @@ class PushuserController extends Controller
         }
     }
 
+    public function deletePushUser(Request $request)
+    {
+        if (Pushuser::where('device_id', $request->device_id)->exists()) {
+            $usuario = Pushuser::where('device_id', $request->device_id);
+            $usuario->delete();
+            return $usuario ? response()->json(['en' => 1, 'm' => 'eliminado correctamente']) : response()->json(['en' => -1, 'm' => 'error al eliminar']);
+        } else {
+            return response()->json(['en' => 0, 'm' => 'no existe el usuario']);
+        }
+    }
+
     public function sendNotification(Request $request, $id)
     {
         $lesson = Lesson::find($id);
@@ -63,7 +74,7 @@ class PushuserController extends Controller
                     "registration_ids" => $dataMil,
                     "notification" => [
                         "title" => 'Lección de hoy 🔊',
-                        "body" => $lesson->categorias->titulo.': '.$lesson->titulo,
+                        "body" => $lesson->categorias->titulo . ': ' . $lesson->titulo,
                         "content_available" => true,
                         "priority" => "high",
                         "icon" => "/favicon.png",
@@ -93,6 +104,65 @@ class PushuserController extends Controller
         return redirect()->route('lessons.index');
     }
 
+    public function sendNotificationTopic(Request $request, $id)
+    {
+        $lesson = Lesson::find($id);
+        $imagen = Lessonimage::where('id_lesson', $id)->first();
+
+        $SERVER_API_KEY = 'AAAAn_DFlvQ:APA91bHz_TQ4xD_hOPwLGilct_CJDIHA4W5pk1LnJ7-ApaAejkWb2wUbjUBzBc1E8gVFpdSlXqFzZNCuh7UDVD_J0spOR-b4SBOHi7ZnRO_EK8Ai1fCba0haqryTo5JTT_Gm00cfnvGQ';
+
+        $headers = [
+            'Authorization: key=' . $SERVER_API_KEY,
+            'Content-Type: application/json',
+        ];
+
+        if (is_null($lesson->titulo)) {
+
+            $data = [
+                "to" => "/topics/inglesxdia-main",
+                "notification" => [
+                    "title" => 'Recordatorio 🔔',
+                    "body" => '¡Tómate 5 minutos para practicar!',
+                    "content_available" => true,
+                    "priority" => "high",
+                    "icon" => "/favicon.png",
+                ],
+            ];
+        } else {
+
+            $data = [
+                "to" => "/topics/inglesxdia-main",
+                "notification" => [
+                    "title" => 'Lección de hoy 🔊',
+                    "body" => $lesson->categorias->titulo . ': ' . $lesson->titulo,
+                    "content_available" => true,
+                    "priority" => "high",
+                    "icon" => "/favicon.png",
+                    "image" => 'https://admin.inglesxdia.com/imagen/' . $imagen->imagen,
+                ],
+                "data" => [
+                    "cat" => $lesson->categorias->slug,
+                    "lec" => $lesson->slug,
+                ],
+            ];
+        }
+
+        $dataString = json_encode($data);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+        $response = curl_exec($ch);
+
+        return redirect()->route('lessons.index');
+    }
+
     public function customNotification(Request $request)
     {
         if ($request->users == "todos") {
@@ -118,7 +188,7 @@ class PushuserController extends Controller
                 $data = [
                     "registration_ids" => $dataMil,
                     "notification" => [
-                        "title" => 'Recordatorio',
+                        "title" => 'Recordatorio 🔔',
                         "body" => '¡Tómate 5 minutos para practicar!',
                         "content_available" => true,
                         "priority" => "high",
