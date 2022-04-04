@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Diariopalabra;
 use App\Models\Lesson;
 use App\Models\Categoria;
 use App\Models\Lessonimage;
@@ -227,5 +228,117 @@ class PushuserController extends Controller
             $response = curl_exec($ch);
         }
         return redirect()->route('lessons.index');
+    }
+
+    public function sendNotificationVoc(Request $request, $id)
+    {
+        $vocabulario = Diariopalabra::find($id);
+        $firebaseToken = Pushuser::whereNotNull('device_token')->pluck('device_token')->all();
+
+        $SERVER_API_KEY = 'AAAAn_DFlvQ:APA91bHz_TQ4xD_hOPwLGilct_CJDIHA4W5pk1LnJ7-ApaAejkWb2wUbjUBzBc1E8gVFpdSlXqFzZNCuh7UDVD_J0spOR-b4SBOHi7ZnRO_EK8Ai1fCba0haqryTo5JTT_Gm00cfnvGQ';
+
+        $headers = [
+            'Authorization: key=' . $SERVER_API_KEY,
+            'Content-Type: application/json',
+        ];
+
+        $dataChunk = array_chunk($firebaseToken, 900);
+
+        foreach ($dataChunk as $dataMil) {
+
+            if (is_null($vocabulario->palabras_in)) {
+
+                $data = [
+                    "registration_ids" => $dataMil,
+                    "notification" => [
+                        "title" => 'Recordatorio',
+                        "body" => '¡Tómate 5 minutos para practicar!',
+                        "content_available" => true,
+                        "priority" => "high",
+                        "icon" => "/favicon.png",
+                    ],
+                ];
+            } else {
+
+                $data = [
+                    "registration_ids" => $dataMil,
+                    "notification" => [
+                        "title" => 'Vocabulario de hoy 🔔',
+                        "body" => $vocabulario->palabras_in,
+                        "content_available" => true,
+                        "priority" => "high",
+                        "icon" => "/favicon.png",
+                    ],
+                ];
+            }
+
+            $dataString = json_encode($data);
+
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+            $response = curl_exec($ch);
+        }
+        return redirect()->route('diariopalabras.index');
+    }
+
+    public function sendNotificationVocTopic(Request $request, $id)
+    {
+        $vocabulario = Diariopalabra::find($id);
+
+        $SERVER_API_KEY = 'AAAAn_DFlvQ:APA91bHz_TQ4xD_hOPwLGilct_CJDIHA4W5pk1LnJ7-ApaAejkWb2wUbjUBzBc1E8gVFpdSlXqFzZNCuh7UDVD_J0spOR-b4SBOHi7ZnRO_EK8Ai1fCba0haqryTo5JTT_Gm00cfnvGQ';
+
+        $headers = [
+            'Authorization: key=' . $SERVER_API_KEY,
+            'Content-Type: application/json',
+        ];
+
+        if (is_null($vocabulario->palabras_in)) {
+
+            $data = [
+                "to" => "/topics/inglesxdia-main",
+                "notification" => [
+                    "title" => 'Recordatorio 🔔',
+                    "body" => '¡Tómate 5 minutos para practicar!',
+                    "content_available" => true,
+                    "priority" => "high",
+                    "icon" => "/favicon.png",
+                ],
+            ];
+        } else {
+
+            $data = [
+                "to" => "/topics/inglesxdia-main",
+                "notification" => [
+                    "title" => 'Vocabulario de hoy 🔔',
+                    "body" => $vocabulario->palabras_in,
+                    "content_available" => true,
+                    "priority" => "high",
+                    "icon" => "/favicon.png",
+                ],
+            ];
+        }
+
+        $dataString = json_encode($data);
+        dd($dataString);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+        $response = curl_exec($ch);
+
+        return redirect()->route('diariopalabras.index');
     }
 }

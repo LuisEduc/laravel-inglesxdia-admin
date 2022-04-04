@@ -27,9 +27,9 @@
                         <tbody id="tablecontents" value="{{ count($diariopalabras) }}">
                             @foreach($diariopalabras as $diariopalabra)
                             <tr class="fila" data-id="{{ $diariopalabra->id }}">
-                                <td class="d-none" >{{$diariopalabra->id}}</td>
+                                <td class="d-none">{{$diariopalabra->id}}</td>
                                 <td>{{$diariopalabra->mes}}</td>
-                                <td class="d-none" >{{$diariopalabra->orden}}</td>
+                                <td class="d-none">{{$diariopalabra->orden}}</td>
                                 <td>{{$diariopalabra->palabras_es}}</td>
                                 <td>{{$diariopalabra->palabras_in}}</td>
                                 <td>
@@ -38,6 +38,16 @@
                                 <td>{{$diariopalabra->audio}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center" role="group">
+                                        <form action="{{ route('send.notification.voc', $diariopalabra->id) }}" method="POST" class="formNotificar">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success btn-sm">imei</button>
+                                        </form>
+
+                                        <form action="{{ route('send.notification.voc.topic', $diariopalabra->id) }}" method="POST" class="formNotificarTopic">
+                                            @csrf
+                                            <button type="submit" class="btn btn-secondary btn-sm mx-2">topic</button>
+                                        </form>
+
                                         <!-- botón editar -->
                                         <a href="{{ route('diariopalabras.edit', $diariopalabra->id) }}" class="btn btn-info btn-sm"><i class="far fa-edit"></i></a>
 
@@ -80,6 +90,49 @@
                         if (result.isConfirmed) {
                             this.submit();
                             Swal.fire('¡Eliminado!', 'El registro ha sido eliminado exitosamente.', 'success');
+                        }
+                    })
+                }, false)
+            })
+        var formNotificar = document.querySelectorAll('.formNotificar')
+        Array.prototype.slice.call(formNotificar)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    Swal.fire({
+                        title: '¿Confirma el envio de la notificación mediante IMEI?',
+                        icon: 'info',
+                        showCancelButton: true,
+                        confirmButtonColor: '#20c997',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Confirmar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.submit();
+                            Swal.fire('¡Enviado!', 'La notificación se ha enviado exitosamente.', 'success');
+                        }
+                    })
+                }, false)
+            })
+
+        var formNotificar = document.querySelectorAll('.formNotificarTopic')
+        Array.prototype.slice.call(formNotificar)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    Swal.fire({
+                        title: '¿Confirma el envio de la notificación mediante TOPIC?',
+                        icon: 'info',
+                        showCancelButton: true,
+                        confirmButtonColor: '#20c997',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Confirmar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.submit();
+                            Swal.fire('¡Enviado!', 'La notificación se ha enviado exitosamente.', 'success');
                         }
                     })
                 }, false)
