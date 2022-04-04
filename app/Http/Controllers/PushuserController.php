@@ -326,7 +326,6 @@ class PushuserController extends Controller
         }
 
         $dataString = json_encode($data);
-        dd($dataString);
 
         $ch = curl_init();
 
