@@ -74,8 +74,8 @@ class PushuserController extends Controller
                 $data = [
                     "registration_ids" => $dataMil,
                     "notification" => [
-                        "title" => 'Lección de hoy 🔊',
-                        "body" => $lesson->categorias->titulo . ': ' . $lesson->titulo,
+                        "title" => 'Lección de hoy ¡Vamos a practicar! 🔔',
+                        "body" => $lesson->titulo_seo,
                         "content_available" => true,
                         "priority" => "high",
                         "icon" => "/favicon.png",
@@ -134,8 +134,8 @@ class PushuserController extends Controller
             $data = [
                 "to" => "/topics/inglesxdia-main",
                 "notification" => [
-                    "title" => 'Lección de hoy 🔊',
-                    "body" => $lesson->categorias->titulo . ': ' . $lesson->titulo,
+                    "title" => 'Lección de hoy ¡Vamos a practicar! 🔔',
+                    "body" => $lesson->titulo_seo,
                     "content_available" => true,
                     "priority" => "high",
                     "icon" => "/favicon.png",
