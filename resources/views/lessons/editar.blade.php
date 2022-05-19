@@ -138,7 +138,7 @@
                     <div class="bg-white overflow-hidden shadow-xl border sm:rounded-lg px-4 py-4 mt-4 text-center">
                         <label class="form-label text-uppercase fw-bold text-xl mb-3">contenido</label>
                         <input type="hidden" id="quill_html" name="contenido"></input>
-                        <div id="editor">
+                        <div id="editor" style="height:500px;">
                             {!!$lesson->contenido!!}
                         </div>
                     </div>
