@@ -2370,12 +2370,12 @@ select {
     }
 }
 
+#editor {
+    height: 500px;
+}
+
 .select-voz {
     font-size: 14px;
     width: 28rem;
-	height: min-content;
-}
-
-#editor{
-    height: 500px;
+    height: min-content;
 }
