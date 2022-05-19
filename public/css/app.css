@@ -2375,3 +2375,7 @@ select {
     width: 28rem;
 	height: min-content;
 }
+
+#editor{
+    height: 500px;
+}

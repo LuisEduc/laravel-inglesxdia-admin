@@ -35,3 +35,9 @@
     </div>
     </div>
 </x-app-layout>
+
+<script>
+    window.addEventListener("beforeunload", (event) => {
+        event.returnValue = true;
+    });
+</script>

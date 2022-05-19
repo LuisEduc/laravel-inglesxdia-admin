@@ -88,7 +88,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                         <div>
                             <label class="form-label text-uppercase">título:</label>
-                            <input name="titulo" class="form-control rounded" type="text"/>
+                            <input name="titulo" class="form-control rounded" type="text" />
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">descripción:</label>
@@ -96,15 +96,15 @@
                         </div>
                         <div>
                             <label class="form-label text-uppercase">Usuarios:</label>
-                            <input name="users" class="form-control rounded" type="text" value="todos"/>
+                            <input name="users" class="form-control rounded" type="text" value="todos" />
                         </div>
                         <div>
                             <label class="form-label text-uppercase">Categoría slug:</label>
-                            <input name="cat" class="form-control rounded" type="text"/>
+                            <input name="cat" class="form-control rounded" type="text" />
                         </div>
                         <div>
                             <label class="form-label text-uppercase">Lección slug:</label>
-                            <input name="lec" class="form-control rounded" type="text"/>
+                            <input name="lec" class="form-control rounded" type="text" />
                         </div>
                     </div>
 
@@ -118,6 +118,7 @@
 
     </div>
 </x-app-layout>
+
 <script>
     (function() {
         'use strict'

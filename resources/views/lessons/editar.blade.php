@@ -29,7 +29,7 @@
                             <label class="form-label text-uppercase">descripción:</label>
                             <textarea name="descripcion" class="form-control rounded" type="text" rows="3">{{ $lesson->descripcion }}</textarea>
                         </div>
-                        <div class="grid grid-cols-1"> 
+                        <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">categoría:</label>
                             <select name="id_categoria" class="form-control rounded" type="number">
                                 @foreach($categorias as $key => $value)
@@ -135,6 +135,14 @@
                         @endforeach
                     </div>
 
+                    <div class="bg-white overflow-hidden shadow-xl border sm:rounded-lg px-4 py-4 mt-4 text-center">
+                        <label class="form-label text-uppercase fw-bold text-xl mb-3">contenido</label>
+                        <input type="hidden" id="quill_html" name="contenido"></input>
+                        <div id="editor">
+                            {!!$lesson->contenido!!}
+                        </div>
+                    </div>
+
                     <div class='flex items-center justify-center  md:gap-8 gap-4 pt-4'>
                         <a href="{{ route('lessons.index') }}" class="btn btn-danger">Cancelar</a>
                         <button type="submit" class="btn btn-success">Actualizar</button>
@@ -159,6 +167,74 @@
     </div>
 </x-app-layout>
 
+<script>
+    window.addEventListener("beforeunload", (event) => {
+        event.returnValue = true;
+    });
+</script>
+
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script>
+    var toolbarOptions = [
+        ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+        ['blockquote', 'code-block'],
+
+        [{
+            'header': 1
+        }, {
+            'header': 2
+        }], // custom button values
+        [{
+            'list': 'ordered'
+        }, {
+            'list': 'bullet'
+        }],
+        [{
+            'script': 'sub'
+        }, {
+            'script': 'super'
+        }], // superscript/subscript
+        [{
+            'indent': '-1'
+        }, {
+            'indent': '+1'
+        }], // outdent/indent
+        [{
+            'direction': 'rtl'
+        }], // text direction
+
+        [{
+            'size': ['small', false, 'large', 'huge']
+        }], // custom dropdown
+        [{
+            'header': [1, 2, 3, 4, 5, 6, false]
+        }],
+
+        [{
+            'color': []
+        }, {
+            'background': []
+        }], // dropdown with defaults from theme
+        [{
+            'font': []
+        }],
+        [{
+            'align': []
+        }],
+
+        ['clean'] // remove formatting button
+    ];
+    var quill = new Quill('#editor', {
+        modules: {
+            toolbar: toolbarOptions
+        },
+        theme: 'snow'
+    });
+
+    quill.on('text-change', function(delta, oldDelta, source) {
+        document.getElementById("quill_html").value = quill.root.innerHTML;
+    });
+</script>
 <script>
     (function() {
         'use strict'

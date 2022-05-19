@@ -10,7 +10,7 @@ class Lesson extends Model
     use HasFactory;
 
     
-    protected $fillable = [ 'slug','orden','titulo','titulo_seo','descripcion','id_categoria','estado','id_tipo','audio','preguntas' ];
+    protected $fillable = [ 'slug','orden','titulo','titulo_seo','descripcion','contenido','id_categoria','estado','id_tipo','audio','preguntas' ];
 
     protected $hidden = ['created_at', 'updated_at'];
 

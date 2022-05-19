@@ -19,8 +19,6 @@
                                 <th class="d-none" scope="col">ORDEN</th>
                                 <th scope="col">PALABRAS EN ESPAÑOL</th>
                                 <th scope="col">PALABRAS EN INGLÉS</th>
-                                <th scope="col">IMAGEN</th>
-                                <th scope="col">AUDIO</th>
                                 <th scope="col">ACCIONES</th>
                             </tr>
                         </thead>
@@ -32,10 +30,6 @@
                                 <td class="d-none">{{$diariopalabra->orden}}</td>
                                 <td>{{$diariopalabra->palabras_es}}</td>
                                 <td>{{$diariopalabra->palabras_in}}</td>
-                                <td>
-                                    <img src="/imagen/{{$diariopalabra->imagen}}" width="100px">
-                                </td>
-                                <td>{{$diariopalabra->audio}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center" role="group">
                                         <form action="{{ route('send.notification.voc', $diariopalabra->id) }}" method="POST" class="formNotificar">
