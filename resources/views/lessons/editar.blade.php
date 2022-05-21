@@ -145,7 +145,7 @@
 
                     <div class='flex items-center justify-center  md:gap-8 gap-4 pt-4'>
                         <a href="{{ route('lessons.index') }}" class="btn btn-danger">Cancelar</a>
-                        <button type="submit" class="btn btn-success">Actualizar</button>
+                        <button type="submit" id="BtnActualizar" class="btn btn-success">Actualizar</button>
                     </div>
 
                 </form>
@@ -231,9 +231,10 @@
         theme: 'snow'
     });
 
-    quill.on('text-change', function(delta, oldDelta, source) {
+    BtnActualizar.addEventListener("click", function() {
         document.getElementById("quill_html").value = quill.root.innerHTML;
     });
+
 </script>
 <script>
     (function() {
