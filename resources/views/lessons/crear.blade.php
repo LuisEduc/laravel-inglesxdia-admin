@@ -27,12 +27,8 @@
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">descripción:</label>
                             <textarea name="descripcion" class="form-control rounded" type="text" rows="3"></textarea>
+                            <div id='count'></div>
                         </div>
-                        <!-- <div class="grid grid-cols-1">
-                            <label class="form-label text-uppercase">Descripción:</label>
-                            <input type="hidden" id="quill_html" name="descripcion"></input>
-                            <div id="editor"></div>
-                        </div> -->
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">categoría:</label>
                             <select name="id_categoria" class="form-control rounded" type="number">
@@ -128,6 +124,18 @@
     window.addEventListener("beforeunload", (event) => {
         event.returnValue = true;
     });
+
+    const textarea = document.querySelector('textarea')
+    const count = document.getElementById('count')
+    textarea.onkeyup = (e) => {
+        if (191 - e.target.value.length > -1) {
+            count.innerHTML = "Caracteres disponibles: " + (191 - e.target.value.length);
+            count.style.color = "green";
+        } else {
+            count.innerHTML = "Exceso de caracteres";
+            count.style.color = "red";
+        }
+    };
 </script>
 
 <!-- Script para ver la imagen antes de CREAR UN NUEVO PRODUCTO -->

@@ -28,6 +28,7 @@
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">descripción:</label>
                             <textarea name="descripcion" class="form-control rounded" type="text" rows="3">{{ $lesson->descripcion }}</textarea>
+                            <div id='count'></div>
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">categoría:</label>
@@ -171,6 +172,18 @@
     window.addEventListener("beforeunload", (event) => {
         event.returnValue = true;
     });
+
+    const textarea = document.querySelector('textarea')
+    const count = document.getElementById('count')
+    textarea.onkeyup = (e) => {
+        if (191 - e.target.value.length > -1) {
+            count.innerHTML = "Caracteres disponibles: " + (191 - e.target.value.length);
+            count.style.color = "green";
+        } else {
+            count.innerHTML = "Exceso de caracteres";
+            count.style.color = "red";
+        }
+    };
 </script>
 
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
@@ -234,7 +247,6 @@
     BtnActualizar.addEventListener("click", function() {
         document.getElementById("quill_html").value = quill.root.innerHTML;
     });
-
 </script>
 <script>
     (function() {
