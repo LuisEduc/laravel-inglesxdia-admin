@@ -25,9 +25,8 @@
                             <input name="titulo_seo" class="form-control rounded" type="text" />
                         </div>
                         <div class="grid grid-cols-1">
-                            <label class="form-label text-uppercase">descripción:</label>
+                            <label class="form-label text-uppercase" id='count'>descripción:</label>
                             <textarea name="descripcion" class="form-control rounded" type="text" rows="3"></textarea>
-                            <div id='count'></div>
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">categoría:</label>
@@ -129,11 +128,13 @@
     const count = document.getElementById('count')
     textarea.onkeyup = (e) => {
         if (191 - e.target.value.length > -1) {
-            count.innerHTML = "Caracteres disponibles: " + (191 - e.target.value.length);
+            count.innerText = "Caracteres disponibles: " + (191 - e.target.value.length);
             count.style.color = "green";
+            count.style.fontWeight = "600";
         } else {
-            count.innerHTML = "Exceso de caracteres";
+            count.innerText = "Exceso de caracteres";
             count.style.color = "red";
+            count.style.fontWeight = "900";
         }
     };
 </script>
