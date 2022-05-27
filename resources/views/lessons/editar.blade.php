@@ -26,8 +26,9 @@
                             <input name="titulo_seo" class="form-control rounded" type="text" value="{{ $lesson->titulo_seo }}" />
                         </div>
                         <div class="grid grid-cols-1">
-                            <label class="form-label text-uppercase" id='count'>descripción:</label>
+                            <label class="form-label text-uppercase">descripción:</label>
                             <textarea name="descripcion" class="form-control rounded" type="text" rows="3">{{ $lesson->descripcion }}</textarea>
+                            <div id='count'></div>
                         </div>
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">categoría:</label>
