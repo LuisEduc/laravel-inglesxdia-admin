@@ -28,6 +28,8 @@ Route::get('lecciones/{id_categoria}','App\Http\Controllers\LessonController@get
 // Seleccionar lecciones de categoria por ID: http://127.0.0.1:8000/api/lecciones/1
 Route::get('lecciones/{slug_cat}/{slug}','App\Http\Controllers\LessonController@getLeccionesCatSlug');
 // Seleccionar leccion por slug: http://127.0.0.1:8000/api/lecciones/ib/cuerpo
+Route::get('lecciones/{slug_cat}/{slug}/c','App\Http\Controllers\LessonController@getLeccionContenido');
+// Seleccionar contenido por slug: http://127.0.0.1:8000/api/lecciones/ib/cuerpo
 Route::get('audio/{audio}','App\Http\Controllers\LessonController@getAudio');
 
 // Categorias

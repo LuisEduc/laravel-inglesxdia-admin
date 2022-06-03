@@ -297,6 +297,20 @@ class LessonController extends Controller
         return $json;
     }
 
+    public function getLeccionContenido($slug_cat, $slug)
+    {
+
+        $contenido = DB::table('lessons')
+        ->select('contenido')
+        ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
+        ->where('categorias.slug', $slug_cat)
+        ->where('lessons.slug', $slug)
+        ->get();
+
+        $json['contenido'] = $contenido;
+        return $contenido;
+    }
+
     public function getAudio($audio)
     {
         return response()->file(public_path("audio/$audio"));
@@ -348,7 +362,7 @@ class LessonController extends Controller
     public function buscar()
     {
         $lecciones = DB::table('lessons')
-            ->select('lessons.id','lessons.id_categoria', DB::raw("CONCAT(lessons.titulo,' [',categorias.titulo,']') as titulo"), 'lessons.slug', 'categorias.slug as slug_cat')
+            ->select('lessons.id', 'lessons.id_categoria', DB::raw("CONCAT(lessons.titulo,' [',categorias.titulo,']') as titulo"), 'lessons.slug', 'categorias.slug as slug_cat')
             ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
             ->where('lessons.estado', 'publica')
             ->get();
