@@ -299,7 +299,6 @@ class LessonController extends Controller
 
     public function getLeccionContenido($slug_cat, $slug)
     {
-
         $contenido = DB::table('lessons')
         ->select('contenido')
         ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
@@ -308,7 +307,7 @@ class LessonController extends Controller
         ->get();
 
         $json['contenido'] = $contenido;
-        return $contenido;
+        return $json;
     }
 
     public function getAudio($audio)
