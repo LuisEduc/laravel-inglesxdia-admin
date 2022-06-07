@@ -36,6 +36,7 @@
                         <div class="grid grid-cols-1">
                             <label class="form-label text-uppercase">descripción:</label>
                             <textarea name="descripcion" class="form-control rounded" type="text" rows="3">{{ $categoria->descripcion }}</textarea>
+                            <div id='count'></div>
                         </div>
                     </div>
 
@@ -49,3 +50,19 @@
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    const textarea = document.querySelector('textarea')
+    const count = document.getElementById('count')
+    textarea.onkeyup = (e) => {
+        if (191 - e.target.value.length > -1) {
+            count.innerText = "Caracteres disponibles: " + (191 - e.target.value.length);
+            count.style.color = "green";
+            count.style.fontWeight = "600";
+        } else {
+            count.innerText = "Exceso de caracteres";
+            count.style.color = "red";
+            count.style.fontWeight = "900";
+        }
+    };
+</script>
