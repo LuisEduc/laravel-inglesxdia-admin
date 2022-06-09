@@ -145,7 +145,7 @@
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script>
     var toolbarOptions = [
-        ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+        ['bold', 'italic', 'underline', 'strike', 'link'], // toggled buttons
         ['blockquote', 'code-block'],
 
         [{
