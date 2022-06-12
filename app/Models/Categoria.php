@@ -9,7 +9,7 @@ class Categoria extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'slug','orden','titulo','descripcion','contenido','nivel','icono' ];
+    protected $fillable = [ 'slug','orden','titulo','descripcion','catcontenido','nivel','icono' ];
 
     protected $hidden = ['created_at', 'updated_at', 'orden'];
 
