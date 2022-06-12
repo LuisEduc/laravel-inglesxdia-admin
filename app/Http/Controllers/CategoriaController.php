@@ -136,4 +136,13 @@ class CategoriaController extends Controller
 
         return $json;
     }
+
+    public function getContenidoCat($slug)
+    {
+        $contenido = Categoria::where('slug', $slug)->get(['catcontenido']);
+
+        $json['contenido'] = $contenido;
+
+        return $json;
+    }
 }

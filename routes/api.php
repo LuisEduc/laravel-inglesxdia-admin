@@ -37,6 +37,8 @@ Route::get('categorias','App\Http\Controllers\CategoriaController@getCategorias'
 // Seleccionar todo: http://127.0.0.1:8000/api/categorias
 Route::get('categoria/{slug}','App\Http\Controllers\CategoriaController@getCategoriasSlug');
 // Seleccionar categoria y lecciones de categoria por slug: http://127.0.0.1:8000/api/categoria/fr
+Route::get('catcontenido/{slug}','App\Http\Controllers\CategoriaController@getContenidoCat');
+// Seleccionar contenido de categoria por slug: http://127.0.0.1:8000/api/catcontenido/fr
 
 // Bloques de Inicio
 Route::get('inicio','App\Http\Controllers\LessonController@getInicio');
