@@ -112,6 +112,7 @@ class CategoriaController extends Controller
     public function getCategorias()
     {
         $categorias = Categoria::orderByDesc('orden')->get();
+        $categorias->makeHidden(['catcontenido']);
         $json['categorias'] = $categorias;
         return $json;
     }
