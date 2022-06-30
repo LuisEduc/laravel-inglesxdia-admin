@@ -257,7 +257,7 @@ class LessonController extends Controller
     public function getLecturas()
     {
         $lecturas = DB::table('lessons')
-            ->select('lessons.orden', 'lessons.slug', 'categorias.slug as slug_cat')
+            ->select('lessons.id', 'lessons.orden', 'lessons.slug', 'categorias.slug as slug_cat')
             ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
             ->where('lessons.estado', 'publica')
             ->where('categorias.slug', 'lc')
