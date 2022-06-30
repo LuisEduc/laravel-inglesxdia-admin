@@ -254,6 +254,21 @@ class LessonController extends Controller
         return $lecciones;
     }
 
+    public function getLecturas()
+    {
+        $lecturas = DB::table('lessons')
+            ->select('lessons.slug', 'categorias.slug as slug_cat')
+            ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
+            ->where('lessons.estado', 'publica')
+            ->where('slug_cat', 'lc')
+            ->where('slug_cat', 'lb')
+            ->where('slug_cat', 'fm')
+            ->orderByDesc('lessons.orden')
+            ->get();
+
+        return $lecturas;
+    }
+
     public function getLeccionesCat($id_categoria)
     {
 

@@ -24,6 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Lecciones
 Route::get('lecciones','App\Http\Controllers\LessonController@getLecciones');
 // Seleccionar todo: http://127.0.0.1:8000/api/lecciones
+Route::get('lecturas','App\Http\Controllers\LessonController@getLecturas');
+// Seleccionar todo: http://127.0.0.1:8000/api/lecturas
 Route::get('lecciones/{id_categoria}','App\Http\Controllers\LessonController@getLeccionesCat');
 // Seleccionar lecciones de categoria por ID: http://127.0.0.1:8000/api/lecciones/1
 Route::get('lecciones/{slug_cat}/{slug}','App\Http\Controllers\LessonController@getLeccionesCatSlug');
