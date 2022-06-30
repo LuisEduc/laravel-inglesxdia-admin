@@ -261,6 +261,8 @@ class LessonController extends Controller
             ->join('categorias', 'categorias.id', '=', 'lessons.id_categoria')
             ->where('lessons.estado', 'publica')
             ->where('categorias.slug', 'lc')
+            ->orWhere('categorias.slug', 'lb')
+            ->orWhere('categorias.slug', 'fm')
             ->orderByDesc('lessons.orden')
             ->get();
 
